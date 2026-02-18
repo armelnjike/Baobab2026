@@ -1,9 +1,14 @@
 /*
-Theme name: BaobabTech
-Theme URI:
+Theme name: baobab
+Theme URI: www.wordpress.com
 Author: Armel Njike
 Description: Theme for the Baobab corporate website
 Version: 1.0
 Tags: Baobab, baobab technologie, baobab store
 Text domain : Baobab tehnologie
  */
+
+ body{
+    margin: auto;
+    /*background-color: blue;*/
+ }
