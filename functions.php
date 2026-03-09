@@ -12,6 +12,7 @@ function astra_child_enqueue_styles() {
         array( 'astra-parent-style' )
     );
 }
+
 // Charger les fonts via wp_enqueue_styles
 add_action( 'wp_enqueue_scripts', 'baobab_enqueue_fonts' );
 function baobab_enqueue_fonts() {
@@ -619,4 +620,181 @@ function baobab_acf_home() {
 
         ), // fin fields
     ) ); // fin acf_add_local_field_group
+}
+
+// ============================================================
+// CUSTOM POST TYPE : CASE STUDIES
+// ============================================================
+// Un Case Study = un projet réalisé par Baobab.
+// On crée aussi une Taxonomie pour les catégories (Web, AI...)
+// Une Taxonomie c'est comme les "catégories" des articles WordPress
+// mais personnalisée pour notre CPT.
+// ============================================================
+add_action( 'init', 'baobab_register_cpt_case_studies' );
+
+function baobab_register_cpt_case_studies() {
+
+    // --- CPT CASE STUDIES ---
+    register_post_type( 'case_studies', array(
+        'labels' => array(
+            'name'          => 'Case Studies',
+            'singular_name' => 'Case Study',
+            'add_new_item'  => 'Ajouter un Case Study',
+            'edit_item'     => 'Modifier le Case Study',
+            'all_items'     => 'Tous les Case Studies',
+            'menu_name'     => 'Case Studies',
+        ),
+        'public'        => true,
+        'has_archive'   => false,
+        'show_in_menu'  => true,
+        'menu_icon'     => 'dashicons-portfolio',
+        'supports'      => array( 'title' ), // Titre = nom du projet
+        'menu_position' => 6,
+    ) );
+
+    // --- TAXONOMIE : CATÉGORIE DE SERVICE ---
+    // register_taxonomy() crée un système de catégories
+    // pour notre CPT case_studies.
+    // 1er argument : slug de la taxonomie
+    // 2ème argument : à quel CPT elle est rattachée
+    // 3ème argument : options
+    register_taxonomy( 'case_category', 'case_studies', array(
+        'labels' => array(
+            'name'          => 'Catégories',
+            'singular_name' => 'Catégorie',
+            'add_new_item'  => 'Ajouter une catégorie',
+            'edit_item'     => 'Modifier la catégorie',
+            'all_items'     => 'Toutes les catégories',
+        ),
+
+        // hierarchical = true → fonctionne comme des catégories (parent/enfant)
+        // hierarchical = false → fonctionne comme des tags (plat)
+        // On met true car on veut des catégories fixes
+        'hierarchical' => true,
+
+        'show_in_menu'  => true,
+        'show_ui'       => true, // Visible dans l'admin
+        'rewrite'       => array( 'slug' => 'case-category' ),
+    ) );
+}
+
+// ============================================================
+// CHAMPS ACF : CASE STUDIES
+// ============================================================
+add_action( 'acf/init', 'baobab_acf_case_studies' );
+
+function baobab_acf_case_studies() {
+
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+    acf_add_local_field_group( array(
+        'key'   => 'group_case_studies',
+        'title' => 'Détails du Case Study',
+
+        'location' => array( array( array(
+            'param'    => 'post_type',
+            'operator' => '==',
+            'value'    => 'case_studies',
+        ) ) ),
+
+        'fields' => array(
+
+            // Image principale du projet
+            array(
+                'key'           => 'field_case_image',
+                'label'         => 'Image du projet',
+                'name'          => 'case_image',
+                'type'          => 'image',
+                'return_format' => 'url',
+                'preview_size'  => 'medium',
+            ),
+
+            // Texte alternatif de l'image (accessibilité)
+            array(
+                'key'          => 'field_case_image_alt',
+                'label'        => 'Description de l\'image',
+                'name'         => 'case_image_alt',
+                'type'         => 'text',
+                'instructions' => 'Ex: Modern dark fintech dashboard with data visualizations',
+            ),
+
+            // Problème client
+            array(
+                'key'   => 'field_case_problem',
+                'label' => 'Problème Client',
+                'name'  => 'case_problem',
+                'type'  => 'textarea',
+                'rows'  => 3,
+            ),
+
+            // Solution stratégique
+            array(
+                'key'   => 'field_case_solution',
+                'label' => 'Solution Stratégique',
+                'name'  => 'case_solution',
+                'type'  => 'textarea',
+                'rows'  => 3,
+            ),
+
+            // Stack technique (textarea : une techno par ligne)
+            array(
+                'key'          => 'field_case_stack',
+                'label'        => 'Stack Technique',
+                'name'         => 'case_stack',
+                'type'         => 'text',
+                'instructions' => 'Ex: Python, TensorFlow, AWS SageMaker',
+            ),
+
+            // Résultats mesurables
+            array(
+                'key'          => 'field_case_results',
+                'label'        => 'Résultats Mesurables',
+                'name'         => 'case_results',
+                'type'         => 'text',
+                'instructions' => 'Ex: 40% reduction in false positives',
+            ),
+
+            // Ordre d'affichage
+            array(
+                'key'   => 'field_case_order',
+                'label' => 'Ordre d\'affichage',
+                'name'  => 'case_order',
+                'type'  => 'number',
+            ),
+
+        ),
+    ) );
+}
+
+// ============================================================
+// CHARGEMENT DES SCRIPTS JS PERSONNALISÉS
+// ============================================================
+add_action( 'wp_enqueue_scripts', 'baobab_enqueue_scripts' );
+
+function baobab_enqueue_scripts() {
+
+    // On charge le filtre JS UNIQUEMENT sur la page case studies
+    // is_page() vérifie si on est sur une page spécifique
+    // On lui passe le slug de la page
+    if ( is_page( 'case-studies' ) ) {
+
+        // wp_enqueue_script() charge un fichier JS
+        // Argument 1 : nom unique du script (handle)
+        // Argument 2 : chemin vers le fichier
+        //   get_stylesheet_directory_uri() = URL du thème enfant
+        // Argument 3 : dépendances (scripts à charger avant)
+        //   array('jquery') = jQuery doit être chargé avant
+        //   array() = pas de dépendances
+        // Argument 4 : version (pour éviter le cache navigateur)
+        // Argument 5 : true = charger en bas de page (avant </body>)
+        //              false = charger dans le <head>
+        wp_enqueue_script(
+            'baobab-case-filter',
+            get_stylesheet_directory_uri() . '/js/case-studies-filter.js',
+            array(),   // Pas besoin de jQuery, on utilise le JS natif
+            '1.0.2',
+            true       // Chargé en bas de page = meilleures performances
+        );
+
+    }
 }
