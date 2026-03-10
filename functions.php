@@ -69,7 +69,7 @@ function baobab_tailwind_cdn() {
             },
         }
     </script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <?php
 }
 
@@ -797,4 +797,89 @@ function baobab_enqueue_scripts() {
         );
 
     }
+
+    // Filtre insights — sur la page liste
+    if ( is_page_template( 'page-insights.php' ) || is_page( 'insights' ) ) {
+        wp_enqueue_script(
+            'baobab-insights-filter',
+            get_stylesheet_directory_uri() . '/js/insights-filter.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
 }
+
+// ============================================================
+// CHAMPS ACF : INSIGHTS (Articles WordPress natifs)
+// ============================================================
+// On ajoute des champs personnalisés aux articles WordPress.
+// WordPress gère déjà : titre, contenu, catégorie, date, auteur.
+// ACF ajoute : galerie d'images, temps de lecture, featured.
+// ============================================================
+add_action( 'acf/init', 'baobab_acf_insights' );
+
+function baobab_acf_insights() {
+
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+    acf_add_local_field_group( array(
+        'key'   => 'group_insights',
+        'title' => 'Détails de l\'Insight',
+
+        // S'affiche sur tous les Articles WordPress natifs
+        'location' => array( array( array(
+            'param'    => 'post_type',
+            'operator' => '==',
+            'value'    => 'post', // 'post' = Articles natifs WordPress
+        ) ) ),
+
+        'fields' => array(
+
+            // Temps de lecture (affiché dans les cartes et la page détail)
+            array(
+                'key'           => 'field_insight_read_time',
+                'label'         => 'Temps de lecture',
+                'name'          => 'insight_read_time',
+                'type'          => 'text',
+                'instructions'  => 'Ex: 8 min read',
+                'default_value' => '5 min read',
+                'wrapper'       => array( 'width' => '50' ),
+            ),
+
+            // Article mis en avant (Featured)
+            // true = cet article apparaît en grande section Featured
+            // false = apparaît dans la grille normale
+            array(
+                'key'           => 'field_insight_featured',
+                'label'         => 'Article mis en avant (Featured)',
+                'name'          => 'insight_featured',
+                'type'          => 'true_false',  // Case à cocher on/off
+                'ui'            => 1,             // Afficher comme un toggle switch
+                'default_value' => 0,             // Par défaut : non featured
+                'wrapper'       => array( 'width' => '50' ),
+            ),
+
+            // Galerie d'images
+            // ACF Pro : 'gallery' = champ galerie avec plusieurs images
+            // Retourne un tableau d'URLs d'images
+            array(
+                'key'           => 'field_insight_gallery',
+                'label'         => 'Galerie d\'images',
+                'name'          => 'insight_gallery',
+                'type'          => 'gallery',      // Type galerie ACF Pro
+                'return_format' => 'url',           // On veut les URLs
+                'preview_size'  => 'medium',
+                'instructions'  => 'La première image sera utilisée comme image principale dans la liste.',
+                'min'           => 1,
+                'max'           => 10,
+            ),
+
+        ),
+    ) );
+}
+
+
+
+
+    
