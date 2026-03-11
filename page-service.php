@@ -5,38 +5,107 @@
 get_header();
 ?>
 
-<!-- Services - Light Theme -->
+<!-- Hero Section — Split Screen -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-sky-950">
 
-<!-- Hero Section -->
-<section class="relative py-20 lg:py-32 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-        <span
-            class="inline-block py-1 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6">Innovative
-            Technology Partner</span>
-        <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-tight">Our Strategic <span
-                class="text-emerald-500">Services</span></h1>
-        <p class="text-lg lg:text-xl max-w-2xl mx-auto mb-12 text-slate-600">Driving exponential growth through custom
-            software innovation and digital transformation tailored for the African market landscape.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <button
-                class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-emerald-900/20 transition-all">Explore
-                Solutions</button>
-            <button
-                class="bg-slate-100 border border-slate-200 text-slate-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-200 transition-all">View
-                Our Work</button>
+    <!-- Orbe gauche -->
+    <div class="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none"></div>
+    <!-- Orbe droite bas -->
+    <div class="absolute -bottom-32 right-0 w-[400px] h-[400px] rounded-full bg-emerald-400/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-28">
+
+        <!-- Colonne gauche — Texte -->
+        <div class="flex flex-col items-start">
+
+            <span class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                Innovative Technology Partner
+            </span>
+
+            <h1 class="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
+                Our Strategic<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-primary">Services</span>
+            </h1>
+
+            <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-lg">
+                Driving exponential growth through custom software innovation and digital transformation tailored for the African market landscape.
+            </p>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="#services-grid"
+                   class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-base hover:brightness-110 hover:shadow-xl hover:shadow-primary/30 transition-all">
+                    Explore Solutions
+                </a>
+                <a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>"
+                   class="bg-white/5 border border-white/15 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-white/10 hover:border-white/30 transition-all">
+                    View Our Work
+                </a>
+            </div>
+
+            <!-- Stats rapides -->
+            <div class="mt-14 flex gap-10 border-t border-white/10 pt-8 w-full">
+                <div>
+                    <p class="text-3xl font-black text-white">12+</p>
+                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Years Experience</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-black text-white">50+</p>
+                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Projects Delivered</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-black text-white">8</p>
+                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">African Countries</p>
+                </div>
+            </div>
+
         </div>
-    </div>
-</section>
-<!-- Services Grid -->
- <!-- 
-    SECTION SERVICES GRID — VERSION DYNAMIQUE
-     ============================================================
-     On remplace le HTML statique par une "boucle WordPress"
-     qui va chercher automatiquement tous nos services
-     dans la base de données  -->
 
-<section class="py-20 bg-background-light dark:bg-background-dark">
+        <!-- Colonne droite — Grille de cartes tech flottantes -->
+        <div class="hidden lg:grid grid-cols-3 gap-4 relative">
+
+            <?php
+            $tech_cards = array(
+                array( 'icon' => 'security',        'label' => 'Cybersecurity',   'delay' => '0s'    ),
+                array( 'icon' => 'database',         'label' => 'Data Intelligence','delay' => '0.4s'  ),
+                array( 'icon' => 'cloud',            'label' => 'Cloud Infra',     'delay' => '0.8s'  ),
+                array( 'icon' => 'smartphone',       'label' => 'Mobile Apps',     'delay' => '1.2s'  ),
+                array( 'icon' => 'hub',              'label' => 'Networking',      'delay' => '0.6s'  ),
+                array( 'icon' => 'monitoring',       'label' => 'Analytics',       'delay' => '1.0s'  ),
+                array( 'icon' => 'code',             'label' => 'Dev & APIs',      'delay' => '0.2s'  ),
+                array( 'icon' => 'psychology',       'label' => 'AI & ML',         'delay' => '1.4s'  ),
+                array( 'icon' => 'shield_lock',      'label' => 'Compliance',      'delay' => '0.9s'  ),
+            );
+            foreach ( $tech_cards as $card ) :
+            ?>
+            <div class="tech-card flex flex-col items-center gap-2 p-5 rounded-2xl bg-white/4 border border-white/8 hover:bg-white/8 hover:border-primary/40 transition-all cursor-default"
+                 style="animation: card-float 5s ease-in-out infinite; animation-delay: <?php echo $card['delay']; ?>;">
+                <span class="material-symbols-outlined text-3xl text-emerald-400"><?php echo $card['icon']; ?></span>
+                <span class="text-xs font-semibold text-slate-300 text-center leading-tight"><?php echo $card['label']; ?></span>
+            </div>
+            <?php endforeach; ?>
+
+        </div>
+
+    </div>
+
+    <!-- Fondu interne bas du hero → couleur section suivante -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-sky-50 pointer-events-none"></div>
+
+</section>
+
+<style>
+@keyframes card-float {
+    0%, 100% { transform: translateY(0px);    }
+    50%       { transform: translateY(-10px);  }
+}
+</style>
+
+<!-- Services Grid -->
+<section id="services-grid" class="py-20 bg-sky-50 dark:bg-background-dark">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Service A: Custom Web & Software Development -->
@@ -66,7 +135,7 @@ get_header();
                     $cta      = get_field( 'service_cta' ) ?: 'Start Your Project';
 
                     ?>
-            <div class="rounded-2xl p-8 flex flex-col hover:border-emerald-500/30 transition-all group service-card">
+            <div class="rounded-2xl p-8 flex flex-col border border-slate-100 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/5 transition-all group service-card">
                 <div
                     class="size-14 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-3xl"><?php echo esc_html( $icon ); ?></span>
@@ -105,8 +174,10 @@ get_header();
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
-                <button
-                    class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-emerald-900 transition-colors"><?php echo esc_html( $cta ); ?></button>
+                <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
+                   class="w-full bg-primary text-slate-500 py-4 rounded-xl font-bold hover:brightness-110 hover:shadow-lg hover:shadow-primary/20 transition-all text-center mt-auto border border-primary/30">
+                    <?php echo esc_html( $cta ); ?>
+                </a>
             </div>
                 <?php
                 endwhile;
@@ -122,34 +193,34 @@ get_header();
 
 
 <!-- Why Choose Baobab? -->
-<section class="py-24 relative">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="py-24 relative overflow-hidden bg-gradient-to-b from-sky-50 to-sky-950">
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-black mb-4">Why Choose Baobab?</h2>
-            <p class="max-w-xl mx-auto text-slate-600">Rooted in excellence, branched out for global success. Our
-                pillars define our commitment to your growth.</p>
+            <h2 class="text-4xl font-black mb-4 text-sky-950">Why Choose Baobab?</h2>
+            <p class="max-w-xl mx-auto text-sky-800">Rooted in excellence, branched out for global success. Our pillars define our commitment to your growth.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
         <?php
             $pillars = get_field("pillars");
             if ( $pillars ) :
                 foreach ( $pillars as $pillar ) :
         ?>
-            <div class="text-center p-6">
-                <div class="size-16 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-emerald-50">
-                    <span class="material-symbols-outlined text-3xl text-primary"><?php echo esc_html( $pillar['pillar_icon']?:'star' ); ?></span>
+            <div class="group text-center p-8 rounded-2xl border border-sky-200/40 bg-white/20 hover:bg-white/30 hover:border-primary/40 backdrop-blur-sm transition-all">
+                <div class="size-16 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-primary/20 group-hover:bg-primary/30 transition-colors">
+                    <span class="material-symbols-outlined text-3xl text-primary"><?php echo esc_html( $pillar['pillar_icon'] ?: 'star' ); ?></span>
                 </div>
-                <h4 class="text-lg font-bold mb-2"><?php echo esc_html( $pillar['pillar_title'] ); ?></h4>
-                <p class="text-sm text-slate-600"><?php echo esc_html( $pillar['pillar_desc'] ); ?></p>
+                <h4 class="text-lg font-bold mb-2 text-sky-950"><?php echo esc_html( $pillar['pillar_title'] ); ?></h4>
+                <p class="text-sm text-sky-900 leading-relaxed"><?php echo esc_html( $pillar['pillar_desc'] ); ?></p>
             </div>
             <?php
                 endforeach;
             else :
-                echo '<p>No pillars found.</p>';
+                echo '<p class="text-slate-400">No pillars found.</p>';
             endif;
-            ?>
-        
+        ?>
+
         </div>
     </div>
 </section>

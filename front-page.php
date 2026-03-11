@@ -3,22 +3,25 @@
  Template Name: Home Page
 */
 get_header();
+
+$hero_badge         = get_field( 'hero_badge' );
+$hero_title         = get_field( 'hero_title' );
+$hero_title_colored = get_field( 'hero_title_colored' );
+$hero_subtitle      = get_field( 'hero_subtitle' );
+$hero_btn1_text     = get_field( 'hero_btn1_text' );
+$hero_btn1_url      = get_field( 'hero_btn1_url' )  ?: home_url( '/services/' );
+$hero_btn2_text     = get_field( 'hero_btn2_text' );
+$hero_btn2_url      = get_field( 'hero_btn2_url' )  ?: home_url( '/case-studies/' );
+$hero_bg_image      = get_field( 'hero_bg_image' );
+$hero_bg_video      = get_field( 'hero_bg_video' );
 ?>
 
 <!-- Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-emerald-50">
-    <?php
-    $hero_badge         = get_field( 'hero_badge' );
-    $hero_title         = get_field( 'hero_title' );
-    $hero_title_colored = get_field( 'hero_title_colored' );
-    $hero_subtitle      = get_field( 'hero_subtitle' );
-    $hero_btn1_text     = get_field( 'hero_btn1_text' );
-    $hero_btn1_url      = get_field( 'hero_btn1_url' )  ?: home_url( '/services/' );
-    $hero_btn2_text     = get_field( 'hero_btn2_text' );
-    $hero_btn2_url      = get_field( 'hero_btn2_url' )  ?: home_url( '/case-studies/' );
-    $hero_bg_image      = get_field( 'hero_bg_image' );
-    $hero_bg_video      = get_field( 'hero_bg_video' );
-    ?>
+<section id="hero-section"
+         class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-emerald-50"
+         <?php if ( $hero_bg_image && ! $hero_bg_video ) : ?>
+         style="background-image: url('<?php echo esc_url( $hero_bg_image ); ?>'); background-size: cover; background-position: center 50%;"
+         <?php endif; ?>>
 
     <?php if ( $hero_bg_video ) : ?>
         <video class="absolute inset-0 w-full h-full object-cover -z-20" autoplay muted loop playsinline>
@@ -26,13 +29,10 @@ get_header();
         </video>
         <div class="absolute inset-0 bg-black/50 -z-10"></div>
     <?php elseif ( $hero_bg_image ) : ?>
-        <div class="absolute inset-0 bg-cover bg-center -z-20"
-             style="background-image: url('<?php echo esc_url( $hero_bg_image ); ?>')"></div>
         <div class="absolute inset-0 bg-black/40 -z-10"></div>
     <?php else : ?>
-
-    <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/50 -z-10"></div>
-    <div class="absolute inset-0 opacity-30 -z-10 bg-[radial-gradient(#013220_1px,transparent_1px)] [background-size:40px_40px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/50 -z-10"></div>
+        <div class="absolute inset-0 opacity-30 -z-10 bg-[radial-gradient(#013220_1px,transparent_1px)] [background-size:40px_40px]"></div>
     <?php endif; ?>
     <div class="max-w-5xl mx-auto px-6 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary dark:text-slate-300 text-xs font-semibold mb-8">
@@ -50,18 +50,37 @@ get_header();
             <?php echo esc_html( $hero_subtitle ?: 'We build solutions that bring your dreams to reality. High-end digital transformation for modern enterprises.' ); ?>
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>" class="w-full sm:w-auto bg-primary  px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:opacity-90 transition-opacity">
+            <a href="<?php echo esc_url( $hero_btn1_url ); ?>" class="w-full sm:w-auto bg-primary  px-8 py-4 rounded-xl text-lg font-bold shadow-xl shadow-primary/20 hover:opacity-90 transition-opacity">
                 <?php echo esc_html( $hero_btn1_text ?: 'Our Solutions' ); ?>
             </a>
-            <a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>" class="w-full sm:w-auto bg-sky/4 border border-slate-400 dark:border-white/10 px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-all">
+            <a href="<?php echo esc_url( $hero_btn2_url ); ?>" class="w-full sm:w-auto bg-sky/4 border border-slate-400 dark:border-white/10 px-8 py-4 rounded-xl text-lg font-bold hover:bg-white/10 transition-all">
                 <?php echo esc_html( $hero_btn2_text ?: 'View Portfolio' ); ?>
             </a>
         </div>
     </div>
 </section>
 
+<script>
+(function () {
+    var section = document.getElementById('hero-section');
+    // Si pas d'image de fond (video ou gradient), on sort
+    if (!section || !section.style.backgroundImage) return;
 
+    var ticking = false;
 
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(function () {
+                // On décale la position Y du fond : 50% au départ, +0.3px par px scrollé
+                // L'image bouge moins vite que la page → effet parallax
+                section.style.backgroundPositionY = 'calc(50% + ' + (window.scrollY * 0.3) + 'px)';
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}());
+</script>
 
 <!-- Strategic Positioning -->
 <section class="py-24 bg-white border-y border-primary/10 bg-slate-50">
