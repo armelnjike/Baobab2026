@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Baobab Technology 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-11 21:30+0100\n"
+"PO-Revision-Date: 2026-03-11 21:35+0100\n"
+"Last-Translator: Zencoder <support@baobab.tech>\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: baobabtech\n"
+
+msgid "Case Studies"
+msgstr "Études de cas"
+
+msgid "A deep dive into how we solve complex engineering challenges and deliver measurable business impact through innovative digital solutions."
+msgstr "Une immersion dans la façon dont nous résolvons des défis d'ingénierie complexes et générons un impact commercial mesurable grâce à des solutions numériques innovantes."
+
+msgid "All Work"
+msgstr "Tous les projets"
+
+msgid "Client Problem"
+msgstr "Problème client"
+
+msgid "Strategic Solution"
+msgstr "Solution stratégique"
+
+msgid "Technical Stack"
+msgstr "Stack technique"
+
+msgid "Measurable Results"
+msgstr "Résultats mesurables"
+
+msgid "Read Full Story"
+msgstr "Lire l'histoire complète"
+
+msgid "No case studies found."
+msgstr "Aucun cas d'étude trouvé."
+
+msgid "Add a case study →"
+msgstr "Ajouter une étude de cas →"
+
+msgid "New Projects Open"
+msgstr "Nouveaux projets ouverts"
+
+msgid "Ready to build your"
+msgstr "Prêt à construire votre"
+
+msgid "success story?"
+msgstr "succès ?"
+
+msgid "Let's collaborate on your next technical challenge and achieve measurable results for your business."
+msgstr "Collaborons sur votre prochain défi technique et obtenez des résultats mesurables pour votre entreprise."
+
+msgid "Start a Project"
+msgstr "Démarrer un projet"
+
+msgid "View All Services"
+msgstr "Voir tous les services"
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Insights"
+msgstr "Actualités"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "Team"
+msgstr "Équipe"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Partner with us"
+msgstr "Devenir partenaire"
+
+msgid "Navigation"
+msgstr "Navigation"
+
+msgid "Expertise"
+msgstr "Expertise"
+
+msgid "Digital Strategy"
+msgstr "Stratégie numérique"
+
+msgid "Software Engineering"
+msgstr "Ingénierie logicielle"
+
+msgid "Data Science & AI"
+msgstr "Science des données et IA"
+
+msgid "Cybersecurity"
+msgstr "Cybersécurité"
+
+msgid "Cloud Infrastructure"
+msgstr "Infrastructure cloud"
+
+msgid "Mobile Development"
+msgstr "Développement mobile"
+
+msgid "Work With Us"
+msgstr "Travaillez avec nous"
+
+msgid "Ready to transform your business? Let's build something great together."
+msgstr "Prêt à transformer votre entreprise ? Construisons quelque chose de grand ensemble."
+
+msgid "Trusted by"
+msgstr "Ils nous font confiance"
+
+msgid "© %d %s. All rights reserved."
+msgstr "© %d %s. Tous droits réservés."
+
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+msgid "Terms of Service"
+msgstr "Conditions de service"
+
+msgid "Legal Notice"
+msgstr "Mentions légales"
+
+msgid "Core Expertise"
+msgstr "Expertise principale"
+
+msgid "Tailored digital services designed for high-impact performance and scalability."
+msgstr "Services numériques sur mesure conçus pour une performance et une évolutivité à fort impact."
+
+msgid "View all services"
+msgstr "Voir tous les services"
+
+msgid "Learn more"
+msgstr "En savoir plus"
+
+msgid "Selected Impact Stories"
+msgstr "Histoires d'impact sélectionnées"
+
+msgid "Led by Innovation"
+msgstr "Guidé par l'innovation"
+
+msgid "Our leadership team combines decades of experience in international tech hubs with a deep understanding of local market dynamics."
+msgstr "Notre équipe de direction combine des décennies d'expérience dans les pôles technologiques internationaux avec une compréhension profonde des dynamiques du marché local."
+
+msgid "Meet the leadership"
+msgstr "Rencontrer l'équipe"
+
+msgid "Innovative Technology Partner"
+msgstr "Partenaire technologique innovant"
+
+msgid "Our Strategic"
+msgstr "Notre stratégique"
+
+msgid "Driving exponential growth through custom software innovation and digital transformation tailored for the African market landscape."
+msgstr "Propulser une croissance exponentielle grâce à l'innovation logicielle personnalisée et à la transformation numérique adaptée au paysage du marché africain."
+
+msgid "Explore Solutions"
+msgstr "Explorer les solutions"
+
+msgid "View Our Work"
+msgstr "Voir notre travail"
+
+msgid "Data Intelligence"
+msgstr "Intelligence des données"
+
+msgid "Cloud Infra"
+msgstr "Infra cloud"
+
+msgid "Mobile Apps"
+msgstr "Apps mobiles"
+
+msgid "Networking"
+msgstr "Réseautage"
+
+msgid "Analytics"
+msgstr "Analyses"
+
+msgid "Dev & APIs"
+msgstr "Dév & APIs"
+
+msgid "AI & ML"
+msgstr "IA & ML"
+
+msgid "Compliance"
+msgstr "Conformité"
+
+msgid "Years Experience"
+msgstr "Années d'expérience"
+
+msgid "Projects Delivered"
+msgstr "Projets livrés"
+
+msgid "Countries Served"
+msgstr "Pays servis"
+
+msgid "Business Problem"
+msgstr "Problème business"
+
+msgid "Why Choose Baobab?"
+msgstr "Pourquoi choisir Baobab ?"
+
+msgid "Rooted in excellence, branched out for global success. Our pillars define our commitment to your growth."
+msgstr "Enracinés dans l'excellence, déployés pour un succès mondial. Nos piliers définissent notre engagement envers votre croissance."
+
+msgid "No pillars found."
+msgstr "Aucun pilier trouvé."

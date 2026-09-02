@@ -1,242 +1,212 @@
 <?php
 /*
- Template Name: Contact Page
+ Template Name: Contact Page (Soulful Brutalism BA Terminal)
 */
 get_header();
-
-// Statut de soumission du formulaire
-$contact_status = $_GET['contact'] ?? '';
 ?>
 
-<!-- ================================================
-     HERO
-     ================================================ -->
-<section class="relative w-full overflow-hidden px-6 lg:px-20 py-16 md:py-24">
-    <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
-    <div class="mx-auto max-w-7xl">
-        <div class="flex flex-col gap-4">
+<main class="flex-1 w-full bg-[#0b0c10] text-slate-100 overflow-x-hidden">
 
-            <span class="text-primary font-bold tracking-widest uppercase text-xs">
-                <?php echo esc_html( get_field( 'contact_label' ) ?: 'Reach Out' ); ?>
-            </span>
-
-            <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-900">
-                <?php echo esc_html( get_field( 'contact_title' ) ?: 'Connect with our' ); ?>
-                <br />
-                <span class="text-primary">
-                    <?php echo esc_html( get_field( 'contact_title_colored' ) ?: 'Global Infrastructure Experts' ); ?>
-                </span>
-            </h1>
-
-            <p class="max-w-2xl text-lg text-slate-500">
-                <?php echo esc_html( get_field( 'contact_subtitle' ) ?: '' ); ?>
-            </p>
-
-        </div>
-    </div>
-</section>
-
-<!-- ================================================
-     FORMULAIRE + INFOS
-     ================================================ -->
-<main class="mx-auto max-w-7xl w-full px-6 lg:px-20 pb-24">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-
-        <!-- FORMULAIRE -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-8 lg:p-12 shadow-sm">
-
-            <h3 class="text-2xl font-bold mb-6">
-                <?php echo esc_html( get_field( 'contact_form_title' ) ?: 'Send us a Message' ); ?>
-            </h3>
-
-            <!-- Message succès / erreur -->
-            <?php if ( $contact_status === 'success' ) : ?>
-            <div class="mb-6 flex items-center gap-3 p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
-                <span class="material-symbols-outlined">check_circle</span>
-                <p class="font-semibold text-sm">Message envoyé ! Nous vous répondrons rapidement.</p>
-            </div>
-            <?php elseif ( $contact_status === 'error' ) : ?>
-            <div class="mb-6 flex items-center gap-3 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700">
-                <span class="material-symbols-outlined">error</span>
-                <p class="font-semibold text-sm">Une erreur s'est produite. Merci de réessayer ou de nous contacter directement par email.</p>
-            </div>
-            <?php endif; ?>
-
-            <!-- Formulaire -->
-            <form method="POST" action="" class="space-y-6">
-
-                <?php wp_nonce_field( 'baobab_contact_submit', 'baobab_contact_nonce' ); ?>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold" for="contact_name">Full Name <span class="text-red-400">*</span></label>
-                        <input
-                            id="contact_name"
-                            name="contact_name"
-                            type="text"
-                            required
-                            placeholder="Njike Baobab"
-                            value="<?php echo esc_attr( $_POST['contact_name'] ?? '' ); ?>"
-                            class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400" />
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-semibold" for="contact_email_input">Email Address <span class="text-red-400">*</span></label>
-                        <input
-                            id="contact_email_input"
-                            name="contact_email_input"
-                            type="email"
-                            required
-                            placeholder="Baobab@company.com"
-                            value="<?php echo esc_attr( $_POST['contact_email_input'] ?? '' ); ?>"
-                            class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400" />
-                    </div>
+    <!-- ================================================
+         1. HERO SECTION : CONTACT
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 border-b-2 border-[#262936] bg-[#0b0c10] nsibidi-bg">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            
+            <div class="max-w-3xl space-y-4">
+                <div class="font-mono-code text-xs text-[#1abc9c] font-bold tracking-widest uppercase">
+                    <?php baobab_e( '[PRISE_DE_CONTACT // DISPONIBILITÉ_PROJET]', '[GET_IN_TOUCH // PROJECT_AVAILABILITY]' ); ?>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-sm font-semibold" for="contact_company">Company Name</label>
-                    <input
-                        id="contact_company"
-                        name="contact_company"
-                        type="text"
-                        placeholder="Baobab Tech Ltd."
-                        value="<?php echo esc_attr( $_POST['contact_company'] ?? '' ); ?>"
-                        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400" />
-                </div>
+                <h1 class="font-grotesk font-black text-4xl sm:text-7xl text-white uppercase tracking-tight leading-none">
+                    <?php baobab_e( 'TRAVAILLONS', "LET'S WORK" ); ?><br/>
+                    <span class="text-[#6c3483]"><?php baobab_e( 'ENSEMBLE.', 'TOGETHER.' ); ?></span>
+                </h1>
 
-                <div class="space-y-2">
-                    <label class="text-sm font-semibold" for="contact_message">How can we help? <span class="text-red-400">*</span></label>
-                    <textarea
-                        id="contact_message"
-                        name="contact_message"
-                        required
-                        rows="4"
-                        placeholder="Tell us about your project..."
-                        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder-slate-400"><?php echo esc_textarea( $_POST['contact_message'] ?? '' ); ?></textarea>
-                </div>
-
-                <button
-                    type="submit"
-                    class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary py-4 text-white font-bold hover:opacity-90 transition-all">
-                    <span>Send Proposal Request</span>
-                    <span class="material-symbols-outlined text-sm">send</span>
-                </button>
-
-            </form>
-        </div>
-
-        <!-- INFOS + CLIENTS -->
-        <div class="flex flex-col gap-12">
-
-            <!-- Infos bureau -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                <?php $address = get_field( 'contact_address' ); if ( $address ) : ?>
-                <div class="flex flex-col gap-3">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">location_on</span>
-                    </div>
-                    <h4 class="font-bold text-lg text-slate-900">Headquarters</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        <?php echo nl2br( esc_html( $address ) ); ?>
-                    </p>
-                </div>
-                <?php endif; ?>
-
-                <?php
-                $email = get_field( 'contact_email' );
-                $phone = get_field( 'contact_phone' );
-                if ( $email || $phone ) :
-                ?>
-                <div class="flex flex-col gap-3">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined">mail</span>
-                    </div>
-                    <h4 class="font-bold text-lg text-slate-900">Contact Info</h4>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        <?php if ( $email ) : ?>
-                        <a href="mailto:<?php echo esc_attr( $email ); ?>" class="hover:text-primary transition-colors">
-                            <?php echo esc_html( $email ); ?>
-                        </a><br />
-                        <?php endif; ?>
-                        <?php if ( $phone ) : ?>
-                        <a href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $phone ) ); ?>" class="hover:text-primary transition-colors">
-                            <?php echo esc_html( $phone ); ?>
-                        </a>
-                        <?php endif; ?>
-                    </p>
-                </div>
-                <?php endif; ?>
-
-            </div>
-
-            <!-- Logos clients -->
-            <?php $clients = get_field( 'clients' ); ?>
-            <?php if ( $clients ) : ?>
-            <div class="pt-6 border-t border-primary/10">
-                <p class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-4">
-                    <?php echo esc_html( get_field( 'clients_label' ) ?: 'Trusted Worldwide By' ); ?>
+                <p class="font-sans text-slate-300 text-lg leading-relaxed pt-4">
+                    <?php baobab_e(
+                        'Vous avez un projet à analyser, un produit à spécifier, ou une équipe à coordonner ? Je suis disponible pour des missions en présentiel à Yaoundé/Douala ou en remote.',
+                        'Have a project to analyze, a product to specify, or a team to coordinate? I am available for on-site missions in Yaoundé/Douala or remote.'
+                    ); ?>
                 </p>
-                <div class="flex flex-wrap gap-8 opacity-90  grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 items-center">
-                    <?php foreach ( $clients as $client ) : ?>
+            </div>
 
-                        <?php if ( $client['client_logo'] ) : ?>
-                        <img src="<?php echo esc_url( $client['client_logo'] ); ?>"
-                             alt="<?php echo esc_attr( $client['client_name'] ); ?>"
-                             class="h-12 object-contain" />
-                        <?php else : ?>
-                        <div class="font-black text-xl italic tracking-tighter">
-                            <?php echo esc_html( $client['client_name'] ); ?>
+        </div>
+    </section>
+
+    <!-- ================================================
+         2. SERVICES CHECKLIST & CONTACT TERMINAL
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 bg-[#0b0c10] border-b-2 border-[#262936]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Terminal Contact Form -->
+                <div class="lg:col-span-7 bg-[#12141a] border-2 border-[#1abc9c] p-6 sm:p-10 space-y-6">
+                    
+                    <div class="flex items-center justify-between border-b border-[#262936] pb-4 font-mono-code text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-[#6c3483] inline-block"></span>
+                            <span class="w-3 h-3 bg-[#1abc9c] inline-block"></span>
+                            <span class="w-3 h-3 bg-white inline-block"></span>
+                            <span class="text-slate-300 font-bold ml-2">BA_COMMUNICATION_TERMINAL</span>
+                        </div>
+                        <span class="text-[#00ffc4]">STATUS: READY</span>
+                    </div>
+
+                    <form action="" method="POST" class="space-y-6 font-mono-code text-xs sm:text-sm">
+
+                        <?php if ( isset( $_GET['contact'] ) && 'success' === $_GET['contact'] ) : ?>
+                        <div class="bg-[#0b0c10] border-2 border-[#1abc9c] text-[#00ffc4] font-mono-code text-xs font-bold px-6 py-4">
+                            ✓ <?php baobab_e( 'MESSAGE ENVOYÉ. MERCI, JE REVIENDRAI VERS VOUS RAPIDEMENT !', 'MESSAGE SENT. THANK YOU, I WILL GET BACK TO YOU SOON!' ); ?>
+                        </div>
+                        <?php elseif ( isset( $_GET['contact'] ) && 'error' === $_GET['contact'] ) : ?>
+                        <div class="bg-[#0b0c10] border-2 border-[#6c3483] text-slate-200 font-mono-code text-xs font-bold px-6 py-4">
+                            ✗ <?php baobab_e( "ERREUR LORS DE L'ENVOI. RÉESSAYEZ.", 'SEND ERROR. PLEASE TRY AGAIN.' ); ?>
                         </div>
                         <?php endif; ?>
 
-                    <?php endforeach; ?>
+                        <div class="space-y-2">
+                            <label for="contact_name" class="block text-[#1abc9c] font-bold uppercase flex items-center gap-1">
+                                <span>></span> <?php baobab_e( 'SAISIR_VOTRE_NOM :', 'ENTER_YOUR_NAME:' ); ?>
+                            </label>
+                            <input type="text" id="contact_name" name="contact_name" placeholder="<?php echo esc_attr( baobab_t( 'Entrez votre nom et prénom...', 'Enter your full name...' ) ); ?>" required
+                                   class="w-full bg-[#0b0c10] border-2 border-[#262936] p-3 text-white focus:border-[#1abc9c] focus:outline-none transition-colors" />
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="contact_email_input" class="block text-[#1abc9c] font-bold uppercase flex items-center gap-1">
+                                <span>></span> <?php baobab_e( 'SAISIR_VOTRE_EMAIL :', 'ENTER_YOUR_EMAIL:' ); ?>
+                            </label>
+                            <input type="email" id="contact_email_input" name="contact_email_input" placeholder="<?php echo esc_attr( baobab_t( 'votre.email@entreprise.com...', 'your.email@company.com...' ) ); ?>" required
+                                   class="w-full bg-[#0b0c10] border-2 border-[#262936] p-3 text-white focus:border-[#1abc9c] focus:outline-none transition-colors" />
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="contact_company" class="block text-[#1abc9c] font-bold uppercase flex items-center gap-1">
+                                <span>></span> <?php baobab_e( 'NOM_DE_L_ENTREPRISE :', 'COMPANY_NAME:' ); ?>
+                            </label>
+                            <input type="text" id="contact_company" name="contact_company" placeholder="<?php echo esc_attr( baobab_t( 'Votre entreprise (optionnel)...', 'Your company (optional)...' ) ); ?>"
+                                   class="w-full bg-[#0b0c10] border-2 border-[#262936] p-3 text-white focus:border-[#1abc9c] focus:outline-none transition-colors" />
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="contact_mission" class="block text-[#1abc9c] font-bold uppercase flex items-center gap-1">
+                                <span>></span> <?php baobab_e( 'SÉLECTIONNER_LE_TYPE_DE_MISSION :', 'SELECT_MISSION_TYPE:' ); ?>
+                            </label>
+                            <select id="contact_mission" name="contact_mission" class="w-full bg-[#0b0c10] border-2 border-[#262936] p-3 text-white focus:border-[#1abc9c] focus:outline-none transition-colors">
+                                <option value="<?php echo esc_attr( baobab_t( 'Analyse des besoins & Cahier des charges', 'Requirements Analysis & Specifications' ) ); ?>"><?php baobab_e( 'ANALYSE_DES_BESOINS_&_CAHIER_DES_CHARGES', 'REQUIREMENTS_ANALYSIS_&_SPECIFICATIONS' ); ?></option>
+                                <option value="<?php echo esc_attr( baobab_t( 'Coordination de projet digital', 'Digital Project Coordination' ) ); ?>"><?php baobab_e( 'COORDINATION_DE_PROJET_DIGITAL', 'DIGITAL_PROJECT_COORDINATION' ); ?></option>
+                                <option value="<?php echo esc_attr( baobab_t( 'Développement de solution sur mesure', 'Custom Solution Development' ) ); ?>"><?php baobab_e( 'DÉVELOPPEMENT_DE_SOLUTION_SUR_MESURE', 'CUSTOM_SOLUTION_DEVELOPMENT' ); ?></option>
+                                <option value="<?php echo esc_attr( baobab_t( 'Tableaux de bord & Business Intelligence', 'Dashboards & Business Intelligence' ) ); ?>"><?php baobab_e( 'TABLEAUX_DE_BORD_&_BUSINESS_INTELLIGENCE', 'DASHBOARDS_&_BUSINESS_INTELLIGENCE' ); ?></option>
+                                <option value="<?php echo esc_attr( baobab_t( 'Formation & Accompagnement d\'équipe', 'Team Training & Support' ) ); ?>"><?php baobab_e( 'FORMATION_&_ACCOMPAGNEMENT_D_ÉQUIPE', 'TEAM_TRAINING_&_SUPPORT' ); ?></option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="contact_message" class="block text-[#1abc9c] font-bold uppercase flex items-center gap-1">
+                                <span>></span> <?php baobab_e( 'DESCRIPTION_DU_BESOIN :', 'DESCRIPTION_OF_NEED:' ); ?>
+                            </label>
+                            <textarea id="contact_message" name="contact_message" rows="5" placeholder="<?php echo esc_attr( baobab_t(
+                                'Décrivez votre projet, vos contraintes et vos délais...',
+                                'Describe your project, constraints and deadlines...'
+                            ) ); ?>" required
+                                      class="w-full bg-[#0b0c10] border-2 border-[#262936] p-3 text-white focus:border-[#1abc9c] focus:outline-none transition-colors"></textarea>
+                        </div>
+
+                        <?php wp_nonce_field( 'baobab_contact_submit', 'baobab_contact_nonce' ); ?>
+
+                        <button type="submit" 
+                                class="w-full py-4 bg-[#1abc9c] text-black font-bold uppercase tracking-wider hover:bg-[#00ffc4] transition-all text-sm">
+                            <?php baobab_e( 'ENVOYER LE MESSAGE →', 'SEND MESSAGE →' ); ?>
+                        </button>
+
+                    </form>
+
                 </div>
+
+                <!-- Right Scope Checklist & Coordinates -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- Checklist -->
+                    <div class="bg-[#12141a] border-2 border-[#6c3483] p-6 space-y-4">
+                        <h3 class="font-grotesk font-black text-xl text-white uppercase border-b border-[#262936] pb-3">
+                            <?php baobab_e( 'CE QUE JE PEUX FAIRE POUR VOUS', 'WHAT I CAN DO FOR YOU' ); ?>
+                        </h3>
+                        <ul class="font-sans text-sm text-slate-300 space-y-3">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00ffc4] font-bold font-mono-code">✓</span>
+                                <span><?php baobab_e(
+                                    'Analyse des besoins et rédaction des spécifications (BRD, FRD)',
+                                    'Requirements analysis and specification writing (BRD, FRD)'
+                                ); ?></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00ffc4] font-bold font-mono-code">✓</span>
+                                <span><?php baobab_e(
+                                    'Coordination de projets digitaux et recette (UAT)',
+                                    'Digital project coordination and UAT'
+                                ); ?></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00ffc4] font-bold font-mono-code">✓</span>
+                                <span><?php baobab_e(
+                                    'Développement de solutions logiciels sur mesure (Laravel, React, Mobile)',
+                                    'Custom software development (Laravel, React, Mobile)'
+                                ); ?></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00ffc4] font-bold font-mono-code">✓</span>
+                                <span><?php baobab_e(
+                                    'Tableaux de bord et analyse de données (Power BI, SQL)',
+                                    'Dashboards and data analysis (Power BI, SQL)'
+                                ); ?></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00ffc4] font-bold font-mono-code">✓</span>
+                                <span><?php baobab_e(
+                                    'Formation et accompagnement des équipes métier',
+                                    'Training and support for business teams'
+                                ); ?></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Direct Info Box -->
+                    <div class="bg-[#12141a] border-2 border-[#262936] p-6 space-y-4 font-mono-code text-xs">
+                        <div class="text-[#1abc9c] font-bold uppercase border-b border-[#262936] pb-3">
+                            <?php baobab_e( '[INFORMATIONS_DE_CONTACT]', '[CONTACT_INFORMATION]' ); ?>
+                        </div>
+
+                        <?php
+                        $contact_phone   = get_field( 'contact_phone' ) ?: '+237 676 398 049';
+                        $contact_email_a = get_field( 'contact_email' ) ?: 'armel.njike@yahoo.com';
+                        $contact_addr    = get_field( 'contact_address' ) ?: baobab_t( 'Yaoundé (Dispo Douala)', 'Yaoundé (Available Douala)' );
+                        ?>
+                        <div class="space-y-3 text-slate-200">
+                            <p class="flex items-center justify-between">
+                                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[#1abc9c] text-sm">call</span> <?php baobab_e( 'TÉLÉPHONE :', 'PHONE:' ); ?></span>
+                                <a href="tel:<?php echo esc_attr( preg_replace('/[^0-9+]/', '', $contact_phone ) ); ?>" class="font-bold text-[#1abc9c] hover:underline"><?php echo esc_html( $contact_phone ); ?></a>
+                            </p>
+                            <p class="flex items-center justify-between">
+                                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[#1abc9c] text-sm">mail</span> EMAIL :</span>
+                                <a href="mailto:<?php echo esc_attr( $contact_email_a ); ?>" class="font-bold text-[#1abc9c] hover:underline"><?php echo esc_html( $contact_email_a ); ?></a>
+                            </p>
+                            <p class="flex items-center justify-between">
+                                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[#1abc9c] text-sm">location_on</span> <?php baobab_e( 'LOCALISATION :', 'LOCATION:' ); ?></span>
+                                <span class="text-white font-bold"><?php echo esc_html( $contact_addr ); ?></span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <?php endif; ?>
 
         </div>
-    </div>
+    </section>
+
 </main>
-
-<!-- ================================================
-     CTA FINALE
-     ================================================ -->
-<section class="w-full bg-primary py-24 px-6 lg:px-20 text-white overflow-hidden relative">
-    <div class="absolute right-0 top-0 h-full w-1/3 opacity-10">
-        <span class="material-symbols-outlined text-[300px] leading-none select-none">hub</span>
-    </div>
-    <div class="mx-auto max-w-4xl text-center flex flex-col items-center gap-8 relative z-10">
-
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-            <?php echo esc_html( get_field( 'cta_title' ) ?: "Let's Build the Future Together." ); ?>
-        </h2>
-
-        <p class="max-w-2xl text-lg text-slate-300">
-            <?php echo esc_html( get_field( 'cta_text' ) ?: '' ); ?>
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4">
-
-            <?php
-            $btn1_text = get_field( 'cta_btn1_text' ) ?: 'Schedule a Strategy Session';
-            $btn1_url  = get_field( 'cta_btn1_url' )  ?: '#';
-            ?>
-            <a href="<?php echo esc_url( $btn1_url ); ?>"
-               class="bg-white border-black/30 text-slate-500 px-8 py-4 rounded-lg font-extrabold text-sm uppercase tracking-widest hover:bg-slate-100 transition-colors">
-                <?php echo esc_html( $btn1_text ); ?>
-            </a>
-
-            <?php
-            $btn2_text = get_field( 'cta_btn2_text' ) ?: 'View Ecosystem';
-            $btn2_url  = get_field( 'cta_btn2_url' )  ?: '#';
-            ?>
-            <a href="<?php echo esc_url( $btn2_url ); ?>"
-               class="border border-black/30 text-slate-500 px-8 py-4 rounded-lg font-extrabold text-sm uppercase tracking-widest hover:bg-white/10 transition-colors">
-                <?php echo esc_html( $btn2_text ); ?>
-            </a>
-
-        </div>
-    </div>
-</section>
 
 <?php get_footer(); ?>

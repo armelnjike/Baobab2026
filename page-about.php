@@ -1,252 +1,266 @@
 <?php
 /*
- Template Name: About Page
+ Template Name: About Page (Soulful Brutalism BA)
 */
 get_header();
+$theme_uri = get_stylesheet_directory_uri();
 ?>
 
-<main class="flex flex-col flex-1">
+<main class="flex-1 w-full bg-[#0b0c10] text-slate-100 overflow-x-hidden">
 
     <!-- ================================================
-         HERO SECTION
+         1. HERO SECTION : ABOUT ME
          ================================================ -->
-    <section class="max-w-[1200px] mx-auto w-full px-6 py-12 md:py-20">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="flex flex-col gap-6">
+    <section class="w-full py-12 md:py-20 border-b-2 border-[#262936] bg-[#0b0c10]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
 
-                <span class="text-primary font-bold tracking-widest text-sm uppercase">
-                    <?php echo esc_html( get_field( 'about_label' ) ?: 'Our Story' ); ?>
-                </span>
-
-                <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-100">
-                    <?php echo esc_html( get_field( 'about_title' ) ?: 'Rooted in Africa, Reaching the World' ); ?>
-                </h1>
-
-                <?php $text1 = get_field( 'about_text1' ); if ( $text1 ) : ?>
-                <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                    <?php echo esc_html( $text1 ); ?>
-                </p>
-                <?php endif; ?>
-
-                <?php $text2 = get_field( 'about_text2' ); if ( $text2 ) : ?>
-                <p class="text-slate-600 dark:text-slate-400">
-                    <?php echo esc_html( $text2 ); ?>
-                </p>
-                <?php endif; ?>
-
-            </div>
-
-            <!-- Image -->
-            <div class="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
-                <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
-                <?php $hero_img = get_field( 'about_hero_image' ); ?>
-                <div class="w-full h-full bg-cover bg-center"
-                     style="background-image: url('<?php echo esc_url( $hero_img ?: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB_7fJviFAwhpbkNhMO7xWJ3SclNTxxRIQ5QKCtCOK-n6LbHDLiJfL_U2jBaauFD38ezMr2nTSv9e5CKOhMLQfeaU5xo8bO88v3HnrEbvlOoJ8KYA-g_myjo_i9FH-9KjFhLUvk2LmYisAei9PMIYmZv4LVupZUpAqcD4Q1TeIPV7zNVaQZ3y2gSt65QI20Y3AYv-hq6UQMd8f-hh0QbFc0MKUi1t0SHzrGi2eDZJkZgQPO7XJ5g7D_sh6C8odKpQ66cPmVbajSphg' ); ?>')">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================================================
-         VISION & MISSION
-         ================================================ -->
-    <section class="bg-primary/5 py-16 bg-slate-50">
-        <div class="max-w-[1200px] mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-8">
-
-                <!-- Vision -->
-                <div class="bg-white p-10 rounded-xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-4xl text-primary mb-4">
-                        <?php echo esc_html( get_field( 'vision_icon' ) ?: 'visibility' ); ?>
-                    </span>
-                    <h3 class="text-2xl font-bold mb-4">
-                        <?php echo esc_html( get_field( 'vision_title' ) ?: 'Our Vision' ); ?>
-                    </h3>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                        <?php echo esc_html( get_field( 'vision_text' ) ?: '' ); ?>
-                    </p>
-                </div>
-
-                <!-- Mission -->
-                <div class="bg-white p-10 rounded-xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-4xl text-primary mb-4">
-                        <?php echo esc_html( get_field( 'mission_icon' ) ?: 'rocket_launch' ); ?>
-                    </span>
-                    <h3 class="text-2xl font-bold mb-4">
-                        <?php echo esc_html( get_field( 'mission_title' ) ?: 'Our Mission' ); ?>
-                    </h3>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                        <?php echo esc_html( get_field( 'mission_text' ) ?: '' ); ?>
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ================================================
-         VALEURS — BAOBAB STANDARDS
-         ================================================ -->
-    <section class="max-w-[1200px] mx-auto w-full px-6 py-20">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">
-                <?php echo esc_html( get_field( 'values_title' ) ?: 'The Baobab Standards' ); ?>
-            </h2>
-            <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                <?php echo esc_html( get_field( 'values_subtitle' ) ?: '' ); ?>
-            </p>
-        </div>
-
-        <?php $values = get_field( 'values' ); ?>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        <?php if ( $values ) :
-            foreach ( $values as $value ) : ?>
-            <div class="bg-white border border-slate-100 p-6 rounded-lg text-center flex flex-col items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-                <div class="bg-primary/10 p-3 rounded-full">
-                    <span class="material-symbols-outlined text-primary">
-                        <?php echo esc_html( $value['value_icon'] ?: 'verified' ); ?>
-                    </span>
-                </div>
-                <h4 class="font-bold">
-                    <?php echo esc_html( $value['value_title'] ); ?>
-                </h4>
-                <p class="text-sm text-slate-500 dark:text-slate-400">
-                    <?php echo esc_html( $value['value_desc'] ); ?>
-                </p>
-            </div>
-        <?php endforeach;
-        endif; ?>
-        </div>
-    </section>
-
-    <!-- ================================================
-         WHY BAOBAB
-         ================================================ -->
-    <section class="bg-primary text-white py-20">
-        <div class="max-w-[1200px] mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-
-                <!-- Texte + points -->
-                <div class="flex flex-col gap-8">
-                    <h2 class="text-3xl font-bold">
-                        <?php echo esc_html( get_field( 'why_title' ) ?: 'Why Baobab?' ); ?>
-                    </h2>
-                    <p class="text-slate-300 leading-relaxed">
-                        <?php echo esc_html( get_field( 'why_text' ) ?: '' ); ?>
-                    </p>
-
-                    <?php $why_points = get_field( 'why_points' ); ?>
-                    <?php if ( $why_points ) : ?>
-                    <div class="space-y-6">
-                        <?php foreach ( $why_points as $point ) : ?>
-                        <div class="flex gap-4">
-                            <span class="material-symbols-outlined text-primary bg-slate-100 rounded-full p-2 h-fit">check</span>
-                            <div>
-                                <h5 class="font-bold text-xl">
-                                    <?php echo esc_html( $point['point_title'] ); ?>
-                                </h5>
-                                <p class="text-white/70">
-                                    <?php echo esc_html( $point['point_desc'] ); ?>
-                                </p>
-                            </div>
+                <!-- Left Column: Portrait Frame -->
+                <div class="lg:col-span-5">
+                    <div class="bg-[#12141a] border-4 border-white p-3 shadow-2xl relative">
+                        <div class="bg-[#0b0c10] border border-[#262936] p-2 mb-3 font-mono-code text-[11px] text-[#1abc9c] flex justify-between">
+                            <span><?php baobab_e( '// PORTRAIT_OFFICIEL', '// OFFICIAL_PORTRAIT' ); ?></span>
+                            <span>CBAP® CERTIFIED</span>
                         </div>
-                        <?php endforeach; ?>
+                        <div class="aspect-[4/5] overflow-hidden border border-[#262936]">
+                            <?php
+                            $portrait = get_field( 'about_hero_image' );
+                            if ( empty( $portrait ) ) {
+                                $portrait = $theme_uri . '/images/armel_portrait.jpg';
+                            }
+                            ?>
+                            <img src="<?php echo esc_url( $portrait ); ?>" 
+                                 alt="NYA NJIKE ARMEL Portrait" 
+                                 class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" />
+                        </div>
                     </div>
-                    <?php endif; ?>
                 </div>
 
-                <!-- Tableau comparatif -->
-                <?php $rows = get_field( 'comparison_rows' ); ?>
-                <?php if ( $rows ) : ?>
-                <div class="rounded-2xl border border-white/10 overflow-hidden bg-slate-900/40">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="bg-white/10">
-                                <th class="py-4 px-5 font-semibold text-white text-sm uppercase tracking-wider">Feature</th>
-                                <th class="py-4 px-5 font-bold text-white text-sm uppercase tracking-wider text-center">Baobab</th>
-                                <th class="py-4 px-5 font-semibold text-slate-400 text-sm uppercase tracking-wider text-center">Competitors</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ( $rows as $row ) : ?>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="py-4 px-5 text-slate-300">
-                                    <?php echo esc_html( $row['row_feature'] ); ?>
-                                </td>
-                                <td class="py-4 px-5 text-center font-bold text-emerald-400">
-                                    <?php echo esc_html( $row['row_baobab'] ); ?>
-                                </td>
-                                <td class="py-4 px-5 text-center text-slate-500">
-                                    <?php echo esc_html( $row['row_competitors'] ); ?>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <?php endif; ?>
+                <!-- Right Column: Content -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <div class="font-mono-code text-xs text-[#1abc9c] font-bold tracking-widest uppercase">
+                        <?php baobab_e( '/À_PROPOS', '/ABOUT_ME' ); ?>
+                    </div>
 
-            </div>
-        </div>
-    </section>
+                    <h1 class="font-grotesk font-black text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-tight">
+                        <?php baobab_e( 'L\'ANALYSTE QUI COMPREND LE', 'THE ANALYST WHO UNDERSTANDS THE' ); ?>
+                        <span class="text-[#6c3483]">CLIENT</span>,
+                        <?php baobab_e( 'LE', 'THE' ); ?>
+                        <span class="text-[#1abc9c]">CODE</span>
+                        <?php baobab_e( 'ET', 'AND' ); ?>
+                        <span class="bg-[#1abc9c] text-black px-3 py-0.5 inline-block"><?php baobab_e( 'L\'ARCHITECTURE.', 'THE ARCHITECTURE.' ); ?></span>
+                    </h1>
 
-    <!-- ================================================
-         TIMELINE
-         ================================================ -->
-    <section class="max-w-[1200px] mx-auto w-full px-6 py-24">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold">
-                <?php echo esc_html( get_field( 'timeline_title' ) ?: 'Our Journey & Roadmap' ); ?>
-            </h2>
-        </div>
+                    <div class="font-grotesk font-bold text-xl text-[#00ffc4] uppercase tracking-wide border-l-4 border-[#6c3483] pl-4 py-1">
+                        <?php baobab_e(
+                            'NYA NJIKE ARMEL — BUSINESS ANALYST, INGÉNIEUR LOGICIEL & ARCHITECTE SYSTÈME',
+                            'NYA NJIKE ARMEL — BUSINESS ANALYST, SOFTWARE ENGINEER & SYSTEM ARCHITECT'
+                        ); ?>
+                    </div>
 
-        <?php $timeline_items = get_field( 'timeline_items' ); ?>
-        <?php if ( $timeline_items ) : ?>
-        <div class="relative">
-
-            <!-- Ligne verticale centrale -->
-            <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-slate-800/30"></div>
-
-            <div class="space-y-16">
-            <?php foreach ( $timeline_items as $index => $item ) :
-
-                // Les étapes paires (0, 2, 4...) sont à gauche
-                // Les étapes impaires (1, 3, 5...) sont à droite
-                $is_right = ( $index % 2 !== 0 );
-
-                // Étape future = opacité réduite + bordure pointillée
-                $is_future = ! empty( $item['timeline_future'] );
-            ?>
-
-                <div class="relative flex flex-col <?php echo $is_right ? 'md:flex-row-reverse' : 'md:flex-row'; ?> items-center justify-between">
-
-                    <!-- Texte -->
-                    <div class="md:w-5/12 <?php echo $is_right ? 'text-center md:text-left' : 'text-center md:text-right'; ?> <?php echo $is_future ? 'opacity-70' : ''; ?>">
-                        <h4 class="text-xl font-bold text-slate-900">
-                            <?php echo esc_html( $item['timeline_item_title'] ); ?>
-                        </h4>
-                        <p class="text-slate-600 dark:text-slate-400 mt-2">
-                            <?php echo esc_html( $item['timeline_item_desc'] ); ?>
+                    <div class="font-sans text-slate-300 text-base leading-relaxed space-y-4">
+                        <p>
+                            <?php baobab_e(
+                                'Je m\'appelle Armel Nya Njike. Je suis Business Analyst et Ingénieur Logiciel basé à Yaoundé, Cameroun.',
+                                'My name is Armel Nya Njike. I am a Business Analyst and Software Engineer based in Yaoundé, Cameroon.'
+                            ); ?>
+                        </p>
+                        <p>
+                            <?php baobab_e(
+                                'Mon parcours est atypique : j\'ai commencé par co-fonder une startup tech à 22 ans, vendu des solutions IT terrain, travaillé deux ans à l\'intérieur de l\'écosystème MoMo de MTN Cameroun, avant de devenir Lead Project Manager sur un projet de digitalisation d\'une société de gestion d\'assets financiers.',
+                                'My path is unconventional: I co-founded a tech startup at 22, sold IT solutions in the field, spent two years inside MTN Cameroon\'s MoMo ecosystem, before becoming Lead Project Manager on the digitalization of a financial asset management company.'
+                            ); ?>
+                        </p>
+                        <p class="italic text-white border-l-2 border-[#1abc9c] pl-4 py-1 bg-[#12141a]">
+                            <?php baobab_e(
+                                'Ce que ça m\'a appris : les projets échouent rarement à cause de la technologie. Ils échouent parce que personne n\'a vraiment compris ce que le client voulait — ou parce que personne n\'a su le traduire correctement pour l\'équipe technique. C\'est exactement ce que je fais. Je suis le pont entre le métier et la tech.',
+                                'What that taught me: projects rarely fail because of technology. They fail because nobody truly understood what the client wanted — or because nobody could translate it properly for the technical team. That is exactly what I do. I am the bridge between business and tech.'
+                            ); ?>
                         </p>
                     </div>
 
-                    <!-- Icône centrale -->
-                    <div class="z-10 <?php echo $is_future ? 'border-2 border-dashed border-primary' : ''; ?> bg-slate-900 w-10 h-10 rounded-full flex items-center justify-center my-4 md:my-0">
-                        <span class="material-symbols-outlined text-white text-md">
-                            <?php echo esc_html( $item['timeline_icon'] ?: 'home' ); ?>
-                        </span>
+                    <div class="flex flex-wrap gap-4 pt-4 font-mono-code text-xs">
+                        <a href="<?php echo esc_url( baobab_get_page_url( 'case-studies' ) ); ?>" class="px-6 py-3.5 bg-[#6c3483] text-white font-bold uppercase tracking-wider hover:bg-[#1abc9c] hover:text-black transition-all">
+                            <?php baobab_e( 'VOIR MON PORTFOLIO', 'VIEW MY PORTFOLIO' ); ?>
+                        </a>
+                        <a href="<?php echo esc_url( baobab_get_page_url( 'contact' ) ); ?>" class="px-6 py-3.5 border-2 border-white text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all">
+                            <?php baobab_e( 'PRENDRE CONTACT', 'GET IN TOUCH' ); ?>
+                        </a>
                     </div>
-
-                    <div class="md:w-5/12"></div>
 
                 </div>
 
-            <?php endforeach; ?>
             </div>
 
         </div>
-        <?php endif; ?>
+    </section>
 
+    <!-- ================================================
+         2. CE QUI ME DIFFÉRENCIE
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 bg-[#12141a] border-b-2 border-[#262936]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            
+            <div class="border-b-2 border-[#262936] pb-4 mb-12">
+                <h2 class="font-grotesk font-black text-3xl sm:text-4xl text-white uppercase">
+                    <?php baobab_e( 'CE QUI ME', 'WHAT SETS ME' ); ?>
+                    <span class="text-[#1abc9c]"><?php baobab_e( 'DIFFÉRENCIE', 'APART' ); ?></span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Differentiator 1 -->
+                <div class="bg-[#0b0c10] border-2 border-[#1abc9c] p-6 space-y-3">
+                    <div class="font-mono-code text-xs text-[#1abc9c] font-bold">[CERTIFICATION_EXCELLENCE]</div>
+                    <h3 class="font-grotesk font-black text-2xl text-white uppercase"><?php baobab_e( 'CBAP® CERTIFIÉ', 'CBAP® CERTIFIED' ); ?></h3>
+                    <p class="font-sans text-sm text-slate-300 leading-relaxed">
+                        <?php baobab_e(
+                            'Une des rares certifications BA reconnues internationalement (IIBA®), obtenue en 2025. Garantie de méthodologie et de rigueur théorique appliquée.',
+                            'One of the few internationally recognized BA certifications (IIBA®), earned in 2025. A guarantee of methodology and applied theoretical rigor.'
+                        ); ?>
+                    </p>
+                </div>
+
+                <!-- Differentiator 2 -->
+                <div class="bg-[#0b0c10] border-2 border-[#6c3483] p-6 space-y-3">
+                    <div class="font-mono-code text-xs text-[#b366ff] font-bold"><?php baobab_e( '[EXPÉRIENCE_TERRAIN]', '[FIELD_EXPERIENCE]' ); ?></div>
+                    <h3 class="font-grotesk font-black text-2xl text-white uppercase">INSIDER MOMO</h3>
+                    <p class="font-sans text-sm text-slate-300 leading-relaxed">
+                        <?php baobab_e(
+                            'Deux ans chez MTN Cameroun m\'ont donné une connaissance opérationnelle des systèmes de mobile money qu\'aucun consultant externe ne peut avoir.',
+                            'Two years at MTN Cameroon gave me operational knowledge of mobile money systems that no external consultant can have.'
+                        ); ?>
+                    </p>
+                </div>
+
+                <!-- Differentiator 3 -->
+                <div class="bg-[#0b0c10] border-2 border-[#6c3483] p-6 space-y-3">
+                    <div class="font-mono-code text-xs text-[#b366ff] font-bold"><?php baobab_e( '[POSITIONNEMENT_HYBRIDE]', '[HYBRID_PROFILE]' ); ?></div>
+                    <h3 class="font-grotesk font-black text-2xl text-white uppercase"><?php baobab_e( 'PROFIL HYBRIDE', 'HYBRID PROFILE' ); ?></h3>
+                    <p class="font-sans text-sm text-slate-300 leading-relaxed">
+                        <?php baobab_e(
+                            'Je lis du code et je parle aux directeurs financiers. Je comprends une spec technique et je sais rédiger un cahier des charges pour un non-technicien.',
+                            'I read code and I talk to CFOs. I understand a technical spec and I can write a specification document for a non-technical audience.'
+                        ); ?>
+                    </p>
+                </div>
+
+                <!-- Differentiator 4 -->
+                <div class="bg-[#0b0c10] border-2 border-[#1abc9c] p-6 space-y-3">
+                    <div class="font-mono-code text-xs text-[#1abc9c] font-bold"><?php baobab_e( '[COMPÉTENCE_LINGUISTIQUE]', '[LANGUAGE_SKILL]' ); ?></div>
+                    <h3 class="font-grotesk font-black text-2xl text-white uppercase"><?php baobab_e( 'BILINGUE FR/EN C2', 'BILINGUAL FR/EN C2' ); ?></h3>
+                    <p class="font-sans text-sm text-slate-300 leading-relaxed">
+                        <?php baobab_e(
+                            'Je travaille aussi naturellement en français qu\'en anglais, avec des clients camerounais comme avec des équipes internationales.',
+                            'I work as naturally in French as in English, with Cameroonian clients as well as international teams.'
+                        ); ?>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================================================
+         3. MON PARCOURS PROFESSIONNEL (ACF timeline)
+         ================================================ -->
+    <?php
+    $tl_items = get_field( 'timeline_items' );
+    if ( ! empty( $tl_items ) && is_array( $tl_items ) ) :
+        $tl_title = get_field( 'timeline_title' ) ?: baobab_t( 'MON PARCOURS.', 'MY JOURNEY.' );
+    ?>
+    <section class="w-full py-16 md:py-24 bg-[#0b0c10] border-b-2 border-[#262936]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            <div class="flex flex-wrap items-end justify-between gap-4 border-b-4 border-[#1abc9c] pb-4 mb-12">
+                <div>
+                    <div class="font-mono-code text-xs text-[#1abc9c] font-bold tracking-widest uppercase mb-2"><?php baobab_e( '[MON_PARCOURS_PROFESSIONNEL]', '[MY_PROFESSIONAL_JOURNEY]' ); ?></div>
+                    <h2 class="font-grotesk font-black text-3xl sm:text-5xl text-white uppercase tracking-tighter"><?php echo esc_html( $tl_title ); ?></h2>
+                </div>
+                <span class="font-mono-code text-xs font-bold text-[#1abc9c] tracking-widest bg-[#12141a] px-4 py-2 border border-[#262936]">[TIMELINE]</span>
+            </div>
+
+            <div class="relative">
+                <div class="absolute left-[27px] sm:left-[31px] top-2 bottom-2 w-0.5 bg-[#262936]"></div>
+                <?php foreach ( $tl_items as $ti ) :
+                    $ic      = ! empty( $ti['timeline_icon'] )       ? $ti['timeline_icon']       : 'star';
+                    $it      = ! empty( $ti['timeline_item_title'] ) ? $ti['timeline_item_title'] : '';
+                    $id      = ! empty( $ti['timeline_item_desc'] )  ? $ti['timeline_item_desc']  : '';
+                    $future  = ! empty( $ti['timeline_future'] );
+                    if ( ! $it ) { continue; }
+                ?>
+                <div class="relative pl-16 sm:pl-20 pb-10 last:pb-0">
+                    <div class="absolute left-0 top-0 w-[54px] sm:w-[62px] h-[54px] sm:h-[62px] <?php echo $future ? 'border-2 border-dashed border-[#b366ff] text-[#b366ff]' : 'bg-[#1abc9c] text-black'; ?> flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl"><?php echo esc_html( $ic ); ?></span>
+                    </div>
+                    <div class="bg-[#12141a] border-2 <?php echo $future ? 'border-dashed border-[#6c3483]' : 'border-[#262936] hover:border-[#1abc9c]'; ?> p-5 space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="font-grotesk font-black text-xl sm:text-2xl text-white uppercase"><?php echo esc_html( $it ); ?></h3>
+                            <?php if ( $future ) : ?>
+                            <span class="px-2 py-0.5 bg-[#6c3483] text-white font-mono-code text-[11px] font-bold uppercase"><?php baobab_e( '[À_VENIR]', '[UPCOMING]' ); ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ( $id ) : ?>
+                        <p class="font-sans text-sm text-slate-300 leading-relaxed"><?php echo esc_html( $id ); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- ================================================
+         4. MES VALEURS
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 bg-[#0b0c10] border-b-2 border-[#262936]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-2">
+                <h2 class="font-grotesk font-black text-4xl sm:text-5xl text-white uppercase">
+                    <?php baobab_e( 'MES', 'MY' ); ?> <span class="italic text-[#1abc9c]"><?php baobab_e( 'VALEURS', 'VALUES' ); ?></span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-[#12141a] border-2 border-[#262936] p-8 space-y-4 hover:border-[#1abc9c] transition-all">
+                    <div class="font-mono-code text-2xl font-bold text-[#1abc9c]">01. <?php baobab_e( 'HONNÊTETÉ', 'HONESTY' ); ?></div>
+                    <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                        <?php baobab_e(
+                            'Je dis quand quelque chose ne marchera pas, avant que ça coûte cher.',
+                            'I say when something will not work, before it gets expensive.'
+                        ); ?>
+                    </p>
+                </div>
+
+                <div class="bg-[#12141a] border-2 border-[#262936] p-8 space-y-4 hover:border-[#6c3483] transition-all">
+                    <div class="font-mono-code text-2xl font-bold text-[#b366ff]">02. <?php baobab_e( 'RIGUEUR', 'RIGOR' ); ?></div>
+                    <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                        <?php baobab_e(
+                            'Une exigence mal définie au départ, c\'est un bug garanti à la fin.',
+                            'A poorly defined requirement at the start means a guaranteed bug at the end.'
+                        ); ?>
+                    </p>
+                </div>
+
+                <div class="bg-[#12141a] border-2 border-[#262936] p-8 space-y-4 hover:border-[#1abc9c] transition-all">
+                    <div class="font-mono-code text-2xl font-bold text-[#1abc9c]">03. IMPACT</div>
+                    <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                        <?php baobab_e(
+                            'Ce qui compte, c\'est ce que l\'utilisateur final peut faire de mieux après que j\'ai travaillé sur un projet.',
+                            'What matters is what the end user can do better after I have worked on a project.'
+                        ); ?>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
     </section>
 
 </main>

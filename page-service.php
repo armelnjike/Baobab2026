@@ -1,228 +1,376 @@
 <?php
 /*
- Template Name: Services Page
+ Template Name: Services Page (Soulful Brutalism BA)
 */
 get_header();
+
+// ------------------------------------------------------------------
+// Hero : valeurs ACF de la page (srv_*) avec repli sur les textes FR/EN
+// ------------------------------------------------------------------
+$srv_badge  = get_field( 'srv_hero_badge' );
+$srv_t1     = get_field( 'srv_hero_title' );
+$srv_t2     = get_field( 'srv_hero_title_colored' );
+$srv_text   = get_field( 'srv_hero_text' );
+$srv_btn1   = get_field( 'srv_btn1_text' );
+$srv_btn2   = get_field( 'srv_btn2_text' );
+$srv_cards  = get_field( 'srv_tech_cards' );
+
+if ( empty( $srv_badge ) ) {
+    $srv_badge = baobab_t( '[MES_OFFRES_DE_SERVICES // CATALOGUE_DE_VALEUR]', '[MY_SERVICE_OFFERINGS // VALUE_CATALOG]' );
+}
+if ( empty( $srv_t1 ) && empty( $srv_t2 ) ) {
+    $srv_t1 = baobab_t( 'QUATRE FAÇONS DONT JE CRÉE DE LA', 'FOUR WAYS I CREATE' );
+    $srv_t2 = baobab_t( 'VALEUR.', 'VALUE.' );
+}
+if ( empty( $srv_text ) ) {
+    $srv_text = baobab_t(
+        'De la cadrage stratégique des besoins métier jusqu\'au suivi d\'exécution technique, voici comment j\'accompagne les entreprises et projets digitaux.',
+        'From the strategic scoping of business needs to technical execution follow-up, here is how I support companies and digital projects.'
+    );
+}
+if ( empty( $srv_btn1 ) ) {
+    $srv_btn1 = baobab_t( 'VOIR MES RÉALISATIONS', 'VIEW MY WORK' );
+}
+if ( empty( $srv_btn2 ) ) {
+    $srv_btn2 = baobab_t( 'ME CONTACTER', 'CONTACT ME' );
+}
+
+// ------------------------------------------------------------------
+// Catalogue : CPT "services" de la langue courante (champ group_services)
+// ------------------------------------------------------------------
+$svc_lang  = ( function_exists( 'pll_current_language' ) ) ? pll_current_language( 'slug' ) : '';
+$svc_query = array(
+    'post_type'      => 'services',
+    'posts_per_page' => -1,
+    'meta_key'       => 'service_order',
+    'orderby'        => 'meta_value_num',
+    'order'          => 'ASC',
+    'suppress_filters'=> false,
+);
+if ( $svc_lang ) { $svc_query['lang'] = $svc_lang; }
+$services = get_posts( $svc_query );
+
+// Piliers (page ACF : group_pillars)
+$pillars = get_field( 'pillars' );
+
+$theme_uri = get_stylesheet_directory_uri();
 ?>
 
-<!-- Hero Section — Split Screen -->
-<section class="relative min-h-screen flex items-center overflow-hidden bg-sky-950">
+<main class="flex-1 w-full bg-[#0b0c10] text-slate-100 overflow-x-hidden">
 
-    <!-- Orbe gauche -->
-    <div class="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px] pointer-events-none"></div>
-    <!-- Orbe droite bas -->
-    <div class="absolute -bottom-32 right-0 w-[400px] h-[400px] rounded-full bg-emerald-400/10 blur-[100px] pointer-events-none"></div>
-
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-28">
-
-        <!-- Colonne gauche — Texte -->
-        <div class="flex flex-col items-start">
-
-            <span class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                </span>
-                Innovative Technology Partner
-            </span>
-
-            <h1 class="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
-                Our Strategic<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-primary">Services</span>
-            </h1>
-
-            <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-lg">
-                Driving exponential growth through custom software innovation and digital transformation tailored for the African market landscape.
-            </p>
-
-            <div class="flex flex-wrap gap-4">
-                <a href="#services-grid"
-                   class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-base hover:brightness-110 hover:shadow-xl hover:shadow-primary/30 transition-all">
-                    Explore Solutions
-                </a>
-                <a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>"
-                   class="bg-white/5 border border-white/15 text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-white/10 hover:border-white/30 transition-all">
-                    View Our Work
-                </a>
-            </div>
-
-            <!-- Stats rapides -->
-            <div class="mt-14 flex gap-10 border-t border-white/10 pt-8 w-full">
-                <div>
-                    <p class="text-3xl font-black text-white">12+</p>
-                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Years Experience</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-black text-white">50+</p>
-                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Projects Delivered</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-black text-white">8</p>
-                    <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">African Countries</p>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Colonne droite — Grille de cartes tech flottantes -->
-        <div class="hidden lg:grid grid-cols-3 gap-4 relative">
-
-            <?php
-            $tech_cards = array(
-                array( 'icon' => 'security',        'label' => 'Cybersecurity',   'delay' => '0s'    ),
-                array( 'icon' => 'database',         'label' => 'Data Intelligence','delay' => '0.4s'  ),
-                array( 'icon' => 'cloud',            'label' => 'Cloud Infra',     'delay' => '0.8s'  ),
-                array( 'icon' => 'smartphone',       'label' => 'Mobile Apps',     'delay' => '1.2s'  ),
-                array( 'icon' => 'hub',              'label' => 'Networking',      'delay' => '0.6s'  ),
-                array( 'icon' => 'monitoring',       'label' => 'Analytics',       'delay' => '1.0s'  ),
-                array( 'icon' => 'code',             'label' => 'Dev & APIs',      'delay' => '0.2s'  ),
-                array( 'icon' => 'psychology',       'label' => 'AI & ML',         'delay' => '1.4s'  ),
-                array( 'icon' => 'shield_lock',      'label' => 'Compliance',      'delay' => '0.9s'  ),
-            );
-            foreach ( $tech_cards as $card ) :
-            ?>
-            <div class="tech-card flex flex-col items-center gap-2 p-5 rounded-2xl bg-white/4 border border-white/8 hover:bg-white/8 hover:border-primary/40 transition-all cursor-default"
-                 style="animation: card-float 5s ease-in-out infinite; animation-delay: <?php echo $card['delay']; ?>;">
-                <span class="material-symbols-outlined text-3xl text-emerald-400"><?php echo $card['icon']; ?></span>
-                <span class="text-xs font-semibold text-slate-300 text-center leading-tight"><?php echo $card['label']; ?></span>
-            </div>
-            <?php endforeach; ?>
-
-        </div>
-
-    </div>
-
-    <!-- Fondu interne bas du hero → couleur section suivante -->
-    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-sky-50 pointer-events-none"></div>
-
-</section>
-
-<style>
-@keyframes card-float {
-    0%, 100% { transform: translateY(0px);    }
-    50%       { transform: translateY(-10px);  }
-}
-</style>
-
-<!-- Services Grid -->
-<section id="services-grid" class="py-20 bg-sky-50 dark:bg-background-dark">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Service A: Custom Web & Software Development -->
-             <?php
-                // WP_QUERY : La classe qui interroge la base de données
-                // dans WordPress. On lui passe un tableau de paramètres
-                // pour filtrer exactement ce qu'on veut.
-                $services = new WP_Query( array(
-                    // on veut les post de type services (notre CPT)
-                    'post_type' => 'services',
-                    //recuperer tout les services sans limite de nombre
-                    'posts_per_page' => -1,
-                    // on veut les services les plus récents en premier
-                    'orderby' => 'date',
-                ));
-            //Boucle WordPress : tant qu'il y a des services à afficher, on les affiche
-            if ( $services->have_posts() ) :
-                while ( $services->have_posts() ) : $services->the_post();
-                    // A l'intérieur de cette boucle, les fonctions WordPress
-                    // comme the_title() ou the_content() vont automatiquement
-                    // afficher les données du service courant. 
-                    $icon = get_field('service_icon'); // ACF : récupérer le champ personnalisé "service_icon"
-                    $problem = get_field('service_problem'); // ACF : récupérer le champ personnalisé "
-                    $solution = get_field('service_solution'); // ACF : récupérer le champ personnalisé "service_solution"
-                    $features = get_field('service_features'); // ACF : récupérer le champ personnalisé "service_features"
-                    $tech_stacks = get_field('service_stack');
-                    $cta      = get_field( 'service_cta' ) ?: 'Start Your Project';
-
-                    ?>
-            <div class="rounded-2xl p-8 flex flex-col border border-slate-100 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/5 transition-all group service-card">
-                <div
-                    class="size-14 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 mb-6 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl"><?php echo esc_html( $icon ); ?></span>
-                </div>
-                <h3 class="text-2xl font-bold mb-4"><?php the_title(); ?></h3>
-                
-                <?php if ( $problem ) : ?>
-
-                <div class="mb-6">
-                    <p class="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-2">Business Problem</p>
-                    <p class="text-slate-600"><?php echo esc_html( $problem ); ?></p>
-                </div>
-                <?php endif; ?>
-                <?php if ( $solution ) : ?>
-                <div class="mb-6">
-                    <p class="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-2">Strategic Solution</p>
-                    <p class="text-slate-600"><?php echo esc_html( $solution ); ?></p>
-                </div>
-                <?php endif; ?>
-                <?php if ( $features ) : ?>
-                <ul class="space-y-3 mb-8">
-                    <?php foreach ( $features as $feature ) :
-                        $feature_text = is_array( $feature ) ? ( $feature['feature_item'] ?? reset( $feature ) ) : $feature;
-                    ?>
-                    <li class="flex items-center gap-2 text-sm text-slate-600"><span
-                            class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span> <?php echo esc_html( $feature_text ); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-                <?php endif; ?>
-                <?php if ( $tech_stacks ) : ?>
-                <div class="flex flex-wrap gap-2 mb-8 mt-auto">
-                    <?php foreach ( $tech_stacks as $stack ) :
-                        $stack_text = is_array( $stack ) ? ( $stack['stack_item'] ?? reset( $stack ) ) : $stack;
-                    ?>
-                    <span class="px-3 py-1 rounded-full text-xs font-medium"><?php echo esc_html( $stack_text ); ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-                <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
-                   class="w-full bg-primary text-slate-500 py-4 rounded-xl font-bold hover:brightness-110 hover:shadow-lg hover:shadow-primary/20 transition-all text-center mt-auto border border-primary/30">
-                    <?php echo esc_html( $cta ); ?>
-                </a>
-            </div>
-                <?php
-                endwhile;
-                wp_reset_postdata(); // Toujours réinitialiser après une boucle personnalisée
-            else :
-                echo '<p>No services found.</p>';
-            endif;
-            ?>
+    <!-- ================================================
+         1. HERO SECTION : SERVICES (ACF srv_*)
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 border-b-2 border-[#262936] bg-[#0b0c10] nsibidi-bg">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
             
-        </div>
-    </div>
-</section>
-
-
-<!-- Why Choose Baobab? -->
-<section class="py-24 relative overflow-hidden bg-gradient-to-b from-sky-50 to-sky-950">
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-black mb-4 text-sky-950">Why Choose Baobab?</h2>
-            <p class="max-w-xl mx-auto text-sky-800">Rooted in excellence, branched out for global success. Our pillars define our commitment to your growth.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <?php
-            $pillars = get_field("pillars");
-            if ( $pillars ) :
-                foreach ( $pillars as $pillar ) :
-        ?>
-            <div class="group text-center p-8 rounded-2xl border border-sky-200/40 bg-white/20 hover:bg-white/30 hover:border-primary/40 backdrop-blur-sm transition-all">
-                <div class="size-16 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-primary/20 group-hover:bg-primary/30 transition-colors">
-                    <span class="material-symbols-outlined text-3xl text-primary"><?php echo esc_html( $pillar['pillar_icon'] ?: 'star' ); ?></span>
+            <div class="max-w-3xl space-y-4">
+                <div class="font-mono-code text-xs text-[#1abc9c] font-bold tracking-widest uppercase">
+                    <?php echo esc_html( $srv_badge ); ?>
                 </div>
-                <h4 class="text-lg font-bold mb-2 text-sky-950"><?php echo esc_html( $pillar['pillar_title'] ); ?></h4>
-                <p class="text-sm text-sky-900 leading-relaxed"><?php echo esc_html( $pillar['pillar_desc'] ); ?></p>
+
+                <h1 class="font-grotesk font-black text-4xl sm:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-none">
+                    <?php echo esc_html( $srv_t1 ); ?> <span class="text-[#6c3483]"><?php echo esc_html( $srv_t2 ); ?></span>
+                </h1>
+
+                <p class="font-sans text-slate-300 text-lg leading-relaxed pt-4">
+                    <?php echo esc_html( $srv_text ); ?>
+                </p>
+
+                <?php if ( ! empty( $srv_btn1 ) || ! empty( $srv_btn2 ) ) : ?>
+                <div class="flex flex-wrap gap-4 pt-6 font-mono-code text-xs">
+                    <?php if ( ! empty( $srv_btn1 ) ) : ?>
+                    <a href="<?php echo esc_url( baobab_get_page_url( 'case-studies' ) ); ?>" 
+                       class="px-6 py-3 bg-[#1abc9c] text-black font-bold uppercase tracking-wider hover:bg-[#00ffc4] transition-all">
+                        <?php echo esc_html( $srv_btn1 ); ?>
+                    </a>
+                    <?php endif; ?>
+                    <?php if ( ! empty( $srv_btn2 ) ) : ?>
+                    <a href="<?php echo esc_url( baobab_get_page_url( 'contact' ) ); ?>" 
+                       class="px-6 py-3 border-2 border-[#6c3483] text-white font-bold uppercase tracking-wider hover:bg-[#6c3483] transition-all">
+                        <?php echo esc_html( $srv_btn2 ); ?>
+                    </a>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php
-                endforeach;
-            else :
-                echo '<p class="text-slate-400">No pillars found.</p>';
-            endif;
-        ?>
+
+            <?php if ( ! empty( $srv_cards ) && is_array( $srv_cards ) ) : ?>
+            <div class="mt-12 flex flex-wrap gap-3 font-mono-code text-xs">
+                <?php foreach ( $srv_cards as $card ) :
+                    $ci = ! empty( $card['card_icon'] )  ? $card['card_icon']  : 'code';
+                    $cl = ! empty( $card['card_label'] ) ? $card['card_label'] : '';
+                ?>
+                <span class="inline-flex items-center gap-2 px-3 py-2 bg-[#12141a] border border-[#262936] text-[#1abc9c]">
+                    <span class="material-symbols-outlined text-base"><?php echo esc_html( $ci ); ?></span>
+                    <?php if ( $cl ) : ?><span class="text-slate-200"><?php echo esc_html( $cl ); ?></span><?php endif; ?>
+                </span>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
 
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ================================================
+         2. DETAILED SERVICES CATALOG (CPT "services")
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 bg-[#0b0c10] border-b-2 border-[#262936]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6 space-y-12">
+
+            <div class="flex flex-wrap items-end justify-between gap-4 border-b-4 border-[#1abc9c] pb-4">
+                <div>
+                    <h2 class="font-grotesk font-black text-3xl sm:text-5xl text-white uppercase tracking-tighter">
+                        <?php baobab_e( 'MES OFFRES DE SERVICES', 'MY SERVICE OFFERINGS' ); ?>
+                    </h2>
+                    <p class="font-mono-code text-xs text-slate-400 mt-1">
+                        <?php baobab_e( 'DÉTAILS ET LIVRABLES PAR OFFRE', 'DETAILS AND DELIVERABLES PER OFFERING' ); ?>
+                    </p>
+                </div>
+                <span class="font-mono-code text-xs font-bold text-[#1abc9c] tracking-widest bg-[#12141a] px-4 py-2 border border-[#262936]">[INDEX_SERVICES]</span>
+            </div>
+
+            <?php if ( ! empty( $services ) ) : ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <?php foreach ( $services as $idx => $svc ) :
+                    $border  = ( $idx % 2 === 0 ) ? 'border-[#1abc9c]' : 'border-[#6c3483]';
+                    $hover   = ( $idx % 2 === 0 ) ? 'hover:border-[#00ffc4]' : 'hover:border-[#b366ff]';
+                    $icon    = get_field( 'service_icon', $svc->ID ) ?: 'code';
+                    $problem = get_field( 'service_problem', $svc->ID );
+                    $sol     = get_field( 'service_solution', $svc->ID );
+                    $feats   = get_field( 'service_features', $svc->ID );
+                    $stack   = get_field( 'service_stack', $svc->ID );
+                    $cta     = get_field( 'service_cta', $svc->ID );
+                    $num     = str_pad( (string)( $idx + 1 ), 2, '0', STR_PAD_LEFT );
+                ?>
+                <div class="bg-[#12141a] border-2 <?php echo esc_attr( $border ); ?> p-8 space-y-6 flex flex-col justify-between <?php echo esc_attr( $hover ); ?> transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center font-mono-code text-xs">
+                            <span class="px-3 py-1 <?php echo ( $idx % 2 === 0 ) ? 'bg-[#1abc9c] text-black' : 'bg-[#6c3483] text-white'; ?> font-bold">SERVICE_<?php echo esc_html( $num ); ?></span>
+                            <span class="<?php echo ( $idx % 2 === 0 ) ? 'text-[#1abc9c]' : 'text-[#b366ff]'; ?>">
+                                <span class="material-symbols-outlined align-middle text-base"><?php echo esc_html( $icon ); ?></span>
+                            </span>
+                        </div>
+
+                        <h3 class="font-grotesk font-black text-2xl sm:text-3xl text-white uppercase leading-tight">
+                            <?php echo esc_html( get_the_title( $svc->ID ) ); ?>
+                        </h3>
+
+                        <?php if ( ! empty( $problem ) ) : ?>
+                        <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                            <?php echo esc_html( $problem ); ?>
+                        </p>
+                        <?php endif; ?>
+
+                        <?php if ( ! empty( $sol ) ) : ?>
+                        <div class="bg-[#0b0c10] border border-[#262936] p-4 font-sans text-xs text-slate-200 leading-relaxed">
+                            <strong class="text-white block font-mono-code uppercase mb-1">> <?php baobab_e( 'MA SOLUTION :', 'MY APPROACH:' ); ?></strong>
+                            <?php echo esc_html( $sol ); ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if ( ! empty( $feats ) && is_array( $feats ) ) : ?>
+                        <div class="font-mono-code text-xs space-y-1.5">
+                            <span class="<?php echo ( $idx % 2 === 0 ) ? 'text-[#1abc9c]' : 'text-[#b366ff]'; ?> font-bold block mb-1"><?php baobab_e( 'CE QUE VOUS OBTENEZ :', 'WHAT YOU GET:' ); ?></span>
+                            <ul class="space-y-1 text-slate-300">
+                                <?php foreach ( $feats as $f ) : if ( empty( $f['feature_item'] ) ) { continue; } ?>
+                                <li class="flex items-start gap-2"><span class="text-[#00ffc4]">></span><span><?php echo esc_html( $f['feature_item'] ); ?></span></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="pt-4 border-t border-[#262936]">
+                        <?php if ( ! empty( $stack ) && is_array( $stack ) ) : ?>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <?php foreach ( $stack as $t ) : if ( empty( $t['stack_item'] ) ) { continue; } ?>
+                            <span class="px-2.5 py-1 bg-[#0b0c10] border border-[#262936] text-slate-300 font-mono-code text-xs"><?php echo esc_html( $t['stack_item'] ); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
+                        <a href="<?php echo esc_url( baobab_get_page_url( 'contact' ) ); ?>" 
+                           class="inline-block px-5 py-2.5 <?php echo ( $idx % 2 === 0 ) ? 'bg-[#1abc9c] text-black hover:bg-[#00ffc4]' : 'bg-[#6c3483] text-white hover:bg-[#b366ff]'; ?> font-mono-code font-bold text-xs uppercase tracking-wider transition-all">
+                            <?php echo esc_html( $cta ?: baobab_t( 'ME CONTACTER', 'CONTACT ME' ) ); ?>
+                        </a>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+
+            </div>
+
+            <?php else : ?>
+
+            <!-- Repli : catalogue statique si aucun service publié dans la langue -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Service 1 — Analyse Métier -->
+                <div class="bg-[#12141a] border-2 border-[#1abc9c] p-8 space-y-6 flex flex-col justify-between hover:border-[#00ffc4] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center font-mono-code text-xs">
+                            <span class="px-3 py-1 bg-[#1abc9c] text-black font-bold">SERVICE_01</span>
+                            <span class="text-[#1abc9c]"><?php baobab_e( '[ANALYSE_MÉTIER]', '[BUSINESS_ANALYSIS]' ); ?></span>
+                        </div>
+                        <h3 class="font-grotesk font-black text-2xl sm:text-3xl text-white uppercase leading-tight">
+                            <?php baobab_e( 'JE TRANSFORME VOS BESOINS EN SPÉCIFICATIONS ACTIONNABLES.', 'I TRANSFORM YOUR NEEDS INTO ACTIONABLE SPECIFICATIONS.' ); ?>
+                        </h3>
+                        <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                            <?php baobab_e(
+                                'Vous avez une idée, un problème ou un processus à améliorer. Je mène les entretiens, anime les ateliers, documente les exigences et produis les livrables (BRD, FRD, User Stories, Use Cases) que votre équipe technique peut immédiatement utiliser.',
+                                'You have an idea, a problem or a process to improve. I run the interviews, facilitate the workshops, document the requirements and produce the deliverables (BRD, FRD, User Stories, Use Cases) your technical team can immediately use.'
+                            ); ?>
+                        </p>
+                        <div class="bg-[#0b0c10] border border-[#262936] p-4 font-sans text-xs text-[#00ffc4]">
+                            <strong class="text-white block font-mono-code uppercase mb-1">> <?php baobab_e( 'CE QUE VOUS OBTENEZ :', 'WHAT YOU GET:' ); ?></strong>
+                            <?php baobab_e(
+                                'Des spécifications claires, testables et traçables — du besoin initial jusqu\'à la recette finale.',
+                                'Clear, testable and traceable specifications — from the initial need to the final UAT.'
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#262936] font-mono-code text-xs text-slate-400">
+                        <span class="text-[#1abc9c] font-bold block mb-1"><?php baobab_e( 'OUTILS & MÉTHODES :', 'TOOLS & METHODS:' ); ?></span>
+                        BABOK · BPMN · CBAP® · MoSCoW · User Story Mapping · UAT
+                    </div>
+                </div>
+
+                <!-- Service 2 — Coordination de Projets Digitaux -->
+                <div class="bg-[#12141a] border-2 border-[#6c3483] p-8 space-y-6 flex flex-col justify-between hover:border-[#b366ff] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center font-mono-code text-xs">
+                            <span class="px-3 py-1 bg-[#6c3483] text-white font-bold">SERVICE_02</span>
+                            <span class="text-[#b366ff]"><?php baobab_e( '[COORDINATION_PROJET]', '[PROJECT_COORDINATION]' ); ?></span>
+                        </div>
+                        <h3 class="font-grotesk font-black text-2xl sm:text-3xl text-white uppercase leading-tight">
+                            <?php baobab_e( 'JE FAIS LE LIEN ENTRE VOTRE ÉQUIPE MÉTIER ET VOS DÉVELOPPEURS.', 'I BRIDGE YOUR BUSINESS TEAM AND YOUR DEVELOPERS.' ); ?>
+                        </h3>
+                        <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                            <?php baobab_e(
+                                'Je coordonne les équipes, suis les milestones, gère les risques et communique l\'avancement aux parties prenantes. Je m\'assure que ce qui est livré correspond à ce qui était attendu — et que les utilisateurs savent s\'en servir.',
+                                'I coordinate teams, track milestones, manage risks and communicate progress to stakeholders. I make sure what is delivered matches what was expected — and that users know how to use it.'
+                            ); ?>
+                        </p>
+                        <div class="bg-[#0b0c10] border border-[#262936] p-4 font-sans text-xs text-[#b366ff]">
+                            <strong class="text-white block font-mono-code uppercase mb-1">> <?php baobab_e( 'CE QUE VOUS OBTENEZ :', 'WHAT YOU GET:' ); ?></strong>
+                            <?php baobab_e(
+                                'Un projet qui se termine, dans les délais, et adopté par vos équipes.',
+                                'A project that gets finished, on time, and adopted by your teams.'
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#262936] font-mono-code text-xs text-slate-400">
+                        <span class="text-[#b366ff] font-bold block mb-1"><?php baobab_e( 'OUTILS :', 'TOOLS:' ); ?></span>
+                        Jira · Trello · Notion · Microsoft Teams · Excel Expert
+                    </div>
+                </div>
+
+                <!-- Service 3 — Développement Logiciel -->
+                <div class="bg-[#12141a] border-2 border-[#6c3483] p-8 space-y-6 flex flex-col justify-between hover:border-[#b366ff] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center font-mono-code text-xs">
+                            <span class="px-3 py-1 bg-[#6c3483] text-white font-bold">SERVICE_03</span>
+                            <span class="text-[#b366ff]"><?php baobab_e( '[DEV_LOGICIEL]', '[SOFTWARE_DEV]' ); ?></span>
+                        </div>
+                        <h3 class="font-grotesk font-black text-2xl sm:text-3xl text-white uppercase leading-tight">
+                            <?php baobab_e( 'JE DÉVELOPPE DES SOLUTIONS MÉTIER SUR MESURE.', 'I BUILD TAILORED BUSINESS SOLUTIONS.' ); ?>
+                        </h3>
+                        <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                            <?php baobab_e(
+                                'CRM, ERP, plateformes de gestion, applications mobiles — je conçois et développe des solutions adaptées à vos besoins réels, pas à un template générique.',
+                                'CRM, ERP, management platforms, mobile apps — I design and build solutions suited to your real needs, not a generic template.'
+                            ); ?>
+                        </p>
+                        <div class="bg-[#0b0c10] border border-[#262936] p-4 font-sans text-xs text-[#b366ff]">
+                            <strong class="text-white block font-mono-code uppercase mb-1">> <?php baobab_e( 'CE QUE VOUS OBTENEZ :', 'WHAT YOU GET:' ); ?></strong>
+                            <?php baobab_e(
+                                'Une application qui résout votre problème spécifique, sans complexité inutile.',
+                                'An application that solves your specific problem, without unnecessary complexity.'
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#262936] font-mono-code text-xs text-slate-400">
+                        <span class="text-[#b366ff] font-bold block mb-1"><?php baobab_e( 'STACK TECHNIQUE :', 'TECH STACK:' ); ?></span>
+                        Laravel · React JS · Flutter · Django · Python · SQL · REST API
+                    </div>
+                </div>
+
+                <!-- Service 4 — Data & Business Intelligence -->
+                <div class="bg-[#12141a] border-2 border-[#1abc9c] p-8 space-y-6 flex flex-col justify-between hover:border-[#00ffc4] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center font-mono-code text-xs">
+                            <span class="px-3 py-1 bg-[#1abc9c] text-black font-bold">SERVICE_04</span>
+                            <span class="text-[#1abc9c]"><?php baobab_e( '[DATA_&_BI]', '[DATA_&_BI]' ); ?></span>
+                        </div>
+                        <h3 class="font-grotesk font-black text-2xl sm:text-3xl text-white uppercase leading-tight">
+                            <?php baobab_e( 'JE TRANSFORME VOS DONNÉES EN DÉCISIONS.', 'I TURN YOUR DATA INTO DECISIONS.' ); ?>
+                        </h3>
+                        <p class="font-sans text-slate-300 text-sm leading-relaxed">
+                            <?php baobab_e(
+                                'Tableaux de bord Power BI, analyses SQL, modèles de prévision — je crée les outils qui vous permettent de piloter votre activité avec des données réelles plutôt qu\'avec des intuitions.',
+                                'Power BI dashboards, SQL analysis, forecasting models — I build the tools that let you run your business on real data instead of gut feeling.'
+                            ); ?>
+                        </p>
+                        <div class="bg-[#0b0c10] border border-[#262936] p-4 font-sans text-xs text-[#00ffc4]">
+                            <strong class="text-white block font-mono-code uppercase mb-1">> <?php baobab_e( 'CE QUE VOUS OBTENEZ :', 'WHAT YOU GET:' ); ?></strong>
+                            <?php baobab_e(
+                                'Des indicateurs clairs, un tableau de bord que vous utiliserez vraiment, et des insights actionnables.',
+                                'Clear KPIs, a dashboard you will actually use, and actionable insights.'
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#262936] font-mono-code text-xs text-slate-400">
+                        <span class="text-[#1abc9c] font-bold block mb-1"><?php baobab_e( 'OUTILS DATA :', 'DATA TOOLS:' ); ?></span>
+                        Power BI · SQL · Python · R · Excel Expert · Tableau
+                    </div>
+                </div>
+
+            </div>
+            <?php endif; ?>
+
+        </div>
+    </section>
+
+    <?php if ( ! empty( $pillars ) && is_array( $pillars ) ) : ?>
+    <!-- ================================================
+         3. PILIERS DE L'APPROCHE (ACF group_pillars)
+         ================================================ -->
+    <section class="w-full py-16 md:py-24 bg-[#0b0c10]">
+        <div class="max-w-[1300px] mx-auto px-4 sm:px-6">
+
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-4 border-[#1abc9c] pb-4 mb-12 gap-4">
+                <div>
+                    <h2 class="font-grotesk font-black text-3xl sm:text-5xl text-white uppercase tracking-tighter">
+                        <?php baobab_e( 'LES PILIERS DE MON APPROCHE', 'THE PILLARS OF MY APPROACH' ); ?>
+                    </h2>
+                    <p class="font-mono-code text-xs text-slate-400 mt-1">
+                        <?php baobab_e( 'CE QUI GARANTIT LA QUALITÉ DE CHAQUE LIVRAISON', 'WHAT GUARANTEES THE QUALITY OF EVERY DELIVERY' ); ?>
+                    </p>
+                </div>
+                <span class="font-mono-code text-xs font-bold text-[#1abc9c] tracking-widest bg-[#12141a] px-4 py-2 border border-[#262936]"><?php baobab_e( '[PILIERS]', '[PILLARS]' ); ?></span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <?php foreach ( $pillars as $pl ) :
+                    $p_icon = ! empty( $pl['pillar_icon'] )  ? $pl['pillar_icon']  : 'star';
+                    $p_title = ! empty( $pl['pillar_title'] ) ? $pl['pillar_title'] : '';
+                    $p_desc  = ! empty( $pl['pillar_desc'] )  ? $pl['pillar_desc']  : '';
+                    if ( ! $p_title ) { continue; }
+                ?>
+                <div class="bg-[#12141a] border-2 border-[#262936] p-6 hover:border-[#1abc9c] transition-all">
+                    <div class="w-10 h-10 bg-[#1abc9c] text-black flex items-center justify-center mb-4 font-mono-code font-bold">
+                        <span class="material-symbols-outlined"><?php echo esc_html( $p_icon ); ?></span>
+                    </div>
+                    <h3 class="font-grotesk font-black text-lg text-white uppercase mb-2"><?php echo esc_html( $p_title ); ?></h3>
+                    <p class="font-sans text-xs text-slate-300 leading-relaxed"><?php echo esc_html( $p_desc ); ?></p>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+        </div>
+    </section>
+    <?php endif; ?>
+
+</main>
 
 <?php get_footer(); ?>

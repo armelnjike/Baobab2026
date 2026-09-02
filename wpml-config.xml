@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wpml-config>
+
+    <custom-types>
+        <custom-type translate="1">services</custom-type>
+        <custom-type translate="1">case_studies</custom-type>
+    </custom-types>
+
+    <taxonomies>
+        <taxonomy translate="1">case_category</taxonomy>
+        <taxonomy translate="1">category</taxonomy>
+        <taxonomy translate="1">post_tag</taxonomy>
+    </taxonomies>
+
+    <custom-fields>
+
+        <!-- Home -->
+        <custom-field action="copy">site_logo</custom-field>
+        <custom-field action="copy">home_portrait</custom-field>
+        <custom-field action="copy">stat1_value</custom-field>
+        <custom-field action="copy">stat1_suffix</custom-field>
+        <custom-field action="translate">stat1_label</custom-field>
+        <custom-field action="copy">stat2_value</custom-field>
+        <custom-field action="copy">stat2_suffix</custom-field>
+        <custom-field action="translate">stat2_label</custom-field>
+        <custom-field action="copy">stat3_value</custom-field>
+        <custom-field action="copy">stat3_suffix</custom-field>
+        <custom-field action="translate">stat3_label</custom-field>
+        <custom-field action="copy">stat4_value</custom-field>
+        <custom-field action="copy">stat4_suffix</custom-field>
+        <custom-field action="translate">stat4_label</custom-field>
+        <custom-field action="translate">home_services_title</custom-field>
+        <custom-field action="translate">home_services_text</custom-field>
+        <custom-field action="translate">home_cases_title</custom-field>
+
+        <!-- Services page -->
+        <custom-field action="translate">srv_hero_title</custom-field>
+        <custom-field action="translate">srv_hero_title_colored</custom-field>
+        <custom-field action="translate">srv_hero_text</custom-field>
+        <custom-field action="translate">srv_hero_badge</custom-field>
+        <custom-field action="translate">srv_btn1_text</custom-field>
+        <custom-field action="translate">srv_btn2_text</custom-field>
+        <custom-field action="copy">srv_tech_cards</custom-field>
+        <custom-field action="copy">pillars</custom-field>
+
+        <!-- Services CPT -->
+        <custom-field action="translate">service_problem</custom-field>
+        <custom-field action="translate">service_solution</custom-field>
+        <custom-field action="translate">service_features</custom-field>
+        <custom-field action="copy">service_icon</custom-field>
+        <custom-field action="copy">service_order</custom-field>
+        <custom-field action="copy">service_stack</custom-field>
+        <custom-field action="translate">service_cta</custom-field>
+
+        <!-- Case Studies page -->
+        <custom-field action="translate">cs_hero_title</custom-field>
+        <custom-field action="translate">cs_hero_desc</custom-field>
+        <custom-field action="translate">cs_cta_badge</custom-field>
+        <custom-field action="translate">cs_cta_title1</custom-field>
+        <custom-field action="translate">cs_cta_title2</custom-field>
+        <custom-field action="translate">cs_cta_text</custom-field>
+        <custom-field action="translate">cs_cta_btn1</custom-field>
+        <custom-field action="translate">cs_cta_btn2</custom-field>
+
+        <!-- Case Studies CPT -->
+        <custom-field action="translate">case_problem</custom-field>
+        <custom-field action="translate">case_solution</custom-field>
+        <custom-field action="translate">case_results</custom-field>
+        <custom-field action="translate">case_context</custom-field>
+        <custom-field action="translate">case_approach</custom-field>
+        <custom-field action="translate">case_findings</custom-field>
+        <custom-field action="translate">case_impact</custom-field>
+        <custom-field action="translate">case_image_alt</custom-field>
+        <custom-field action="copy">case_stack</custom-field>
+        <custom-field action="copy">case_image</custom-field>
+        <custom-field action="copy">case_order</custom-field>
+        <custom-field action="copy">case_featured</custom-field>
+        <custom-field action="copy">case_client</custom-field>
+        <custom-field action="copy">case_meta</custom-field>
+
+        <!-- About page -->
+        <custom-field action="copy">about_hero_image</custom-field>
+        <custom-field action="translate">timeline_title</custom-field>
+        <custom-field action="translate">timeline_item_title</custom-field>
+        <custom-field action="translate">timeline_item_desc</custom-field>
+        <custom-field action="copy">timeline_icon</custom-field>
+        <custom-field action="copy">timeline_future</custom-field>
+
+        <!-- Contact page -->
+        <custom-field action="copy">contact_address</custom-field>
+        <custom-field action="copy">contact_email</custom-field>
+        <custom-field action="copy">contact_phone</custom-field>
+        <custom-field action="translate">contact_form_title</custom-field>
+        <custom-field action="copy">contact_recipient</custom-field>
+
+        <!-- Insights page -->
+        <custom-field action="translate">ins_title1</custom-field>
+        <custom-field action="translate">ins_title2</custom-field>
+        <custom-field action="translate">ins_subtitle</custom-field>
+        <custom-field action="translate">ins_tab_all</custom-field>
+        <custom-field action="translate">ins_featured_label</custom-field>
+        <custom-field action="translate">ins_read_cta</custom-field>
+        <custom-field action="translate">ins_grid_title</custom-field>
+        <custom-field action="translate">ins_load_more</custom-field>
+        <custom-field action="translate">ins_nl_title</custom-field>
+        <custom-field action="translate">ins_nl_text</custom-field>
+        <custom-field action="translate">ins_nl_placeholder</custom-field>
+        <custom-field action="translate">ins_nl_btn</custom-field>
+        <custom-field action="translate">ins_nl_disclaimer</custom-field>
+
+        <!-- Insights CPT (posts) -->
+        <custom-field action="translate">insight_read_time</custom-field>
+        <custom-field action="copy">insight_featured</custom-field>
+        <custom-field action="copy">insight_gallery</custom-field>
+
+        <!-- Piliers / Features -->
+        <custom-field action="translate">card_label</custom-field>
+        <custom-field action="copy">card_icon</custom-field>
+        <custom-field action="translate">feature_item</custom-field>
+        <custom-field action="translate">stack_item</custom-field>
+
+        <!-- Partners CPT -->
+        <custom-field action="translate">partner_name</custom-field>
+        <custom-field action="translate">partner_desc</custom-field>
+        <custom-field action="copy">partner_logo</custom-field>
+        <custom-field action="copy">partner_link</custom-field>
+        <custom-field action="copy">partner_order</custom-field>
+
+    </custom-fields>
+
+    <admin-texts>
+        <key name="blogname" />
+        <key name="blogdescription" />
+    </admin-texts>
+
+</wpml-config>
